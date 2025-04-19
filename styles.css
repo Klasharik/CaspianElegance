@@ -9,19 +9,19 @@ body {
 
 .navbar {
   background-color: transparent !important;
-  height: 100px;
+  height: 6.25rem;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 10;
+  z-index: 2000;
   transition: background-color .4s ease-in-out;
 }
 
 
 /* Navbar core styling */
 .navbar-nav {
-  margin-left: 7rem;
+  margin-left: 7.5rem;
   font-weight: 600;
   font-size: 0.9rem;
   padding-top: 2px;
@@ -30,16 +30,16 @@ body {
 
 .navbar-brand {
   color: white !important;
-  margin-left: 5.5rem;
+  margin-left: 6rem;
   font-weight: 600;
 }
 
-.visit-text {
+.caspian-text {
   line-height: 1;
   font-size: 0.9rem;
 }
 
-.azerbaijan-text {
+.elegance-text {
   font-size: 1.5rem;
   line-height: 1;
 }
@@ -71,7 +71,7 @@ body {
 .navbar .nav-link::after {
   content: "";
   position: absolute;
-  margin-bottom: 5px;
+  margin-bottom: 0.3125rem;
   left: 50%;
   bottom: 0;
   width: 0%;
@@ -93,6 +93,15 @@ body {
 
 
 /* Mega menu */
+.navbar.mega-open {
+  background-color: white !important;
+}
+
+.navbar.mega-open .nav-link,
+.navbar.mega-open .navbar-brand {
+  color: black !important;
+}
+
 .mega-menu {
   position: absolute;
   width: 100%;
@@ -100,7 +109,7 @@ body {
   right: 0;
   background-color: white;
   height: 85vh;
-  z-index: 1000;
+  z-index: 2000;
   display: none;
   padding-left: 150px;
   padding-right: 150px;
@@ -176,7 +185,7 @@ body {
   font-size: 2rem;
   cursor: pointer;
   color: #6c757d;
-  z-index: 1000;
+  z-index: 99999;
 
   width: 40px;
   height: 40px;

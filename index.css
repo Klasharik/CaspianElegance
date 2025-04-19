@@ -54,30 +54,26 @@
 
 .carousel-control-prev {
   left: 1.5rem;
-  width: 5%; /* Reduce the width of the clickable area (default is 15%) */
+  width: 4rem;
+  height: 4rem;
   top: 50%; /* Center vertically */
   transform: translateY(-50%); /* Adjust for vertical centering */
   opacity: 0.7; /* Optional: Adjust visibility */
-  
 }
 
 .carousel-control-next {
   right: 1.5rem;
-  width: 5%; /* Reduce the width of the clickable area (default is 15%) */
+  width: 4rem;
+  height: 4rem;
   top: 50%; /* Center vertically */
   transform: translateY(-50%); /* Adjust for vertical centering */
   opacity: 0.7; /* Optional: Adjust visibility */
 }
 
-.carousel-control-prev-icon, .carousel-control-next-icon {
-  width: 1.8rem;
-  height: 1.8rem;
-  background-size: 1.8rem 1.8rem;
-}
-
-/* Ensure hover effect is subtle */
-.carousel-control-prev:hover, .carousel-control-next:hover {
-  opacity: 1;
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 1.7rem;
+  height: 1.7rem;
 }
 
 .btn-stop {
@@ -90,7 +86,7 @@
   border-radius: 0.9rem;
 
   cursor: pointer;
-  z-index: 9000;
+  z-index: 1000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -107,7 +103,7 @@
 
 
   cursor: pointer;
-  z-index: 9000;
+  z-index: 1000;
   display: flex;
   justify-content: center;
   align-items: center;

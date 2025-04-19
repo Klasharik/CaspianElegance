@@ -2,42 +2,47 @@ document.addEventListener('DOMContentLoaded', function() {
   // Mega Menu
   const megaMenuToggles = document.querySelectorAll('.mega-menu-toggle');
   const closeMegaMenuButtons = document.querySelectorAll('.close-mega-menu');
-  
+  const navbar = document.querySelector('.navbar');
 
   function closeAllMegaMenus() {
-      document.querySelectorAll('.nav-item.show').forEach(item => {
-          item.classList.remove('show');
-      });
+    document.querySelectorAll('.nav-item.show').forEach(item => {
+      item.classList.remove('show');
+    });
+    if (navbar) {
+      navbar.classList.remove('mega-open');
+    }
   }
-  
+
   megaMenuToggles.forEach(toggle => {
-      toggle.addEventListener('click', function(e) {
-          e.preventDefault();
-          
-          const parentItem = this.closest('.nav-item');
-          const isOpen = parentItem.classList.contains('show');
-          
-          closeAllMegaMenus();
-          
-          if (!isOpen) {
-              parentItem.classList.add('show');
-          }
-      });
-  });
-  
-  closeMegaMenuButtons.forEach(button => {
-      button.addEventListener('click', closeAllMegaMenus);
-  });
-  
-  document.addEventListener('click', function(e) {
-      if (!e.target.closest('.nav-item.has-mega-menu') && 
-          !e.target.classList.contains('mega-menu-toggle')) {
-          closeAllMegaMenus();
+    toggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      const parentItem = this.closest('.nav-item');
+      const isOpen = parentItem.classList.contains('show');
+      
+      closeAllMegaMenus();
+      
+      if (!isOpen) {
+        parentItem.classList.add('show');
+        if (navbar) {
+          navbar.classList.add('mega-open');
+        }
       }
+    });
   });
 
+  closeMegaMenuButtons.forEach(button => {
+    button.addEventListener('click', closeAllMegaMenus);
+  });
 
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.nav-item.has-mega-menu') && 
+        !e.target.classList.contains('mega-menu-toggle')) {
+      closeAllMegaMenus();
+    }
+  });
 
+  
   // Underline Width Logic
   const navLinks = document.querySelectorAll('.navbar .nav-link');
 
@@ -68,4 +73,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
   navLinks.forEach(updateUnderlineWidth);
 });
-
