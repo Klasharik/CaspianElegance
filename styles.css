@@ -7,6 +7,9 @@ body {
   min-height: 100vh;
 }
 
+
+
+/* SECTION: Navbar core styling */
 .navbar {
   background-color: transparent !important;
   height: 6.25rem;
@@ -18,8 +21,6 @@ body {
   transition: background-color .4s ease-in-out;
 }
 
-
-/* Navbar core styling */
 .navbar-nav {
   margin-left: 7.5rem;
   font-weight: 600;
@@ -48,11 +49,26 @@ body {
   color: white;
   position: relative;
   cursor: pointer;
-  --text-width: 50%; /* Default width in percentage */
+  --text-width: 50%;
 }
 
+.navbar .search-button{
+  font-size: 1.2rem;
+  margin-top: 0.2rem;
+}
 
-/* Navbar animation */
+.navbar .sing-in-button{
+  font-size: 1.3rem;
+  margin-top: 0.1rem;
+}
+
+.navbar .language-button{
+  font-size: 1rem;
+  margin-top: 0.4rem;
+  margin-right: 6rem;
+}
+
+/* Navbar hover effects */
 .navbar:hover {
   background-color: white !important;
 }
@@ -68,7 +84,7 @@ body {
   transition: color 0s;
 }
 
-.navbar .nav-link::after {
+.navbar .nav-link:not(.dropdown-toggle)::after {
   content: "";
   position: absolute;
   margin-bottom: 0.3125rem;
@@ -78,23 +94,35 @@ body {
   height: 0.125rem;
   background-color: #010e81;
   transform: translateX(-50%);
-  transition: width 0.3s ease;
+  transition: width 0.4s ease;
 }
 
-.navbar .nav-link:hover::after {
+.navbar .nav-link:hover:not(.dropdown-toggle)::after {
   width: var(--text-width);
 }
 
-/* Active link styling */
 .navbar .nav-link.active-link::after {
   width: var(--text-width);
 }
 
 
 
-/* Mega menu */
+/* SECTION: Mega menu styles */
 .navbar.mega-open {
+  z-index: 2000;
+  position: relative;
   background-color: white !important;
+}
+
+.navbar.mega-open::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 4px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), transparent);
+  z-index: 2000;
 }
 
 .navbar.mega-open .nav-link,
@@ -108,13 +136,11 @@ body {
   left: 0;
   right: 0;
   background-color: white;
-  height: 85vh;
+  height: 100vh;
   z-index: 2000;
   display: none;
-  padding-left: 150px;
-  padding-right: 150px;
   overflow-y: auto;
-  margin-top: 16px;
+  margin-top: 1.9rem;
 }
 
 .nav-item {
@@ -125,73 +151,259 @@ body {
   display: block;
 }
 
-.mega-menu-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 2rem;
-}
-
-.mega-menu-header {
-  position: relative;
-  margin-bottom: 2rem; /* Reduce space below */
-  padding-top: 1rem; /* Reduce padding below */
-}
-
-.mega-menu-header::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -3.5rem; /* Extend line to the left */
-  width: calc(100% + 7rem); /* Make line longer */
-  height: 0.0625rem;
-  background-color: #d1dbe4;
-}
-
-/* Mega menu item */
-.mega-menu-item {
-  margin-bottom: 1.5rem;
-}
-
-.mega-menu-item img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-}
-
-.mega-menu-item h4 {
-  margin-bottom: 0.5rem;
-  font-weight: bold;
-}
-
-
-.mega-menu-links a {
-  display: block;
-  text-decoration: none;
-  color: #333;
-  padding: 0.5rem 0;
-  transition: color 0.3s;
-}
-
-.mega-menu-links a:hover {
-  color: #0d6efd;
-}
-
+/* Close mega menu button styles */
 .close-mega-menu {
   position: absolute;
   top: 1rem;
-  right: 150px;
+  right: 3rem;
   font-size: 2rem;
   cursor: pointer;
   color: #6c757d;
   z-index: 99999;
-
-  width: 40px;
-  height: 40px;
-
+  width: 2.5rem;
+  height: 2.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+
+
+/* SECTION: Where-to-go */
+.items-layout-where{
+  margin-top: 1rem;
+}
+
+.mega-menu-header {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: left;
+  margin-left: 1.4rem;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/*Routes*/
+.routes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.route-card {
+  background-color: #f8f9fa;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.route-card:hover {
+  color: #010e81;
+  background-color: #e8ebf9;
+}
+
+.route-card .card-img {
+  width: 200px;
+  height: 140px;
+  object-fit: cover;
+  border-top-left-radius: var(--bs-card-border-radius);
+  border-bottom-left-radius: var(--bs-card-border-radius);
+}
+
+.route-card .card-body {
+  padding: 0.5rem;
+}
+
+.route-card .card-title {
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 0.7rem;
+  font-size: 1rem;
+}
+
+.route-card .card-text {
+  font-weight: 400;
+  margin: 0;
+  font-size: 0.875rem;
+  color: #495057 ;
+}
+
+/*Map*/
+.map-and-details {
+  padding: 1rem;
+}
+
+.routes-map {
+  width: 23.25rem;
+  height: 23.25rem;
+  margin-top: 1.05rem;
+}
+
+.region {
+  fill: #dbe3ea;
+  stroke: white;
+  stroke-width: 1;
+}
+
+.region.highlight {
+  fill: #5c7db2;
+  transition: 0.3s ease-in-out;
+}
+
+
+
+/*SECTION: Things-to-do*/
+.items-layout-things{
+  margin-top: 0.2rem;
+}
+
+
+/* Category links */
+.category-body{
+  padding-bottom: 2rem;
+}
+
+.category-title{
+  display: inline-block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: .5px;
+  color: black;
+  padding-bottom: 0.6rem;
+  text-transform: uppercase;
+}
+
+.category-link{
+  font-weight: 500;
+  color: #495057;
+  text-decoration: none;
+}
+
+.category-link-arrow {
+  position: relative;
+  font-size: 0.7rem;
+  top: 1px;
+}
+
+.category-link:hover {
+  color:#010e81;
+}
+
+.see-all-link {
+  display: inline-block;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  color: black;
+  text-decoration: none;
+}
+
+
+/* Category's preiview setup */
+.preview-wrapper {
+  position: relative;
+  overflow: hidden;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  height: 500px;
+}
+
+/* Category's image */
+.preview-wrapper img.preview-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.6s ease;
+}
+
+.preview-wrapper img.current-img {
+  opacity: 1;
+  z-index: 1;
+}
+
+.preview-wrapper img.next-img {
+  opacity: 0;
+  z-index: 0;
+}
+
+/* Category's badge */
+.preview-wrapper .category-badge {
+  position: absolute;
+  top: 1.3rem;
+  left: 1.8rem;
+  width: 130px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+  border-radius: 0.25rem;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Category text overlay */
+.preview-wrapper .preview-text-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.6s ease;
+  z-index: 2;
+}
+
+.preview-wrapper .preview-text-overlay::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+  z-index: 1;
+}
+
+.preview-wrapper .preview-text-overlay > * {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+}
+
+/* Category's animation */
+.preview-wrapper .current-text {
+  opacity: 1;
+}
+
+.preview-wrapper .next-text {
+  opacity: 0;
+}
+
+.preview-wrapper .preview-title {
+  font-size: 2rem;
+  font-weight: 600;
+  padding-left: 0.8rem;
+}
+
+.preview-wrapper .preview-date {
+  display: block;
+  font-size: 0.9rem;
+  padding-top: 0.3rem;
+  padding-bottom: 0.4rem;
+  padding-left: 0.8rem;
+}
+
+.preview-wrapper .preview-desc {
+  font-size: 0.85rem;
+  padding-bottom: 2rem;
+  padding-left: 0.8rem;
+}
+
+.custom-shadow {
+  box-shadow: -10px 15px 20px rgba(0,0,0,0.2);
+  border-radius: 0.75rem;
+}

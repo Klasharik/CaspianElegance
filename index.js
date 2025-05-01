@@ -1,13 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
-  // SECTION: Element Selectors
+  //Element Selectors
   const video = document.getElementById('carousel-video');
   const carousel = document.getElementById('carouselExampleCaptions');
   const muteBtn = document.getElementById('mute-btn');
   const playPauseBtn = document.getElementById('play-pause-btn');
   const navLinks = document.querySelectorAll('.nav-pills .nav-link');
 
-
-  // SECTION: Carousel Initialization
+  // Carousel Initialization
   const carouselInstance = new bootstrap.Carousel(carousel, {
     interval: false,
     pause: 'hover',
@@ -15,16 +14,13 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   carousel.removeAttribute('data-bs-ride');
 
-
-  // SECTION: Timer and Flags
+  //Timer and Flags
   let autoSlideTimer = null;
   const defaultImageInterval = 5000;
   let userInteracted = false;
   let userPausedVideo = false;
   let manualSlideChange = false;
 
-
-  // SECTION: Helper Functions
   // Function to update play/pause icon based on video state
   function updatePlayPauseIcon() {
     if (video.paused) {
@@ -42,9 +38,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  
 
   // SECTION: Auto Slide Logic
-  // Function to calculate interval for the current slide
   function calculateSlideInterval(slideIndex) {
     const allSlides = carousel.querySelectorAll('.carousel-item');
     const activeItem = allSlides[slideIndex];
@@ -90,6 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
+
   // SECTION: Carousel Event Handlers
   carousel.addEventListener('slid.bs.carousel', function (e) {
     const activeItem = carousel.querySelector('.carousel-item.active');
@@ -112,6 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
       updatePlayPauseIcon();
     }
   });
+
 
 
   // SECTION: Control Buttons Handlers
@@ -152,6 +150,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 
+
   // SECTION: Video Event Handlers
   video.addEventListener('play', () => {
     updatePlayPauseIcon();
@@ -178,6 +177,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 
+
   // SECTION: Video Initialization
   video.addEventListener('loadedmetadata', function () {
     video.muted = true;
@@ -195,6 +195,7 @@ document.addEventListener('DOMContentLoaded', function () {
       startAutoSlide();
     }
   });
+
 
 
   // SECTION: Page Visibility Handling
@@ -218,6 +219,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 
+
   // SECTION: Underline Navigation Links
   navLinks.forEach(link => {
     const tempSpan = document.createElement('span');
@@ -235,6 +237,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let underlineWidthPercent = (textWidth / buttonWidth) * 100;
     link.style.setProperty('--underline-width', `${underlineWidthPercent}%`);
   });
+
 
   
   // SECTION: Initial Setup
