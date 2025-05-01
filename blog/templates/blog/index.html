@@ -7,7 +7,8 @@
 
 {% block content %}
 <div class="w-100">
-  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-pause="false">
+  <div id="carouselExampleCaptions" class="carousel slide">
+    <!-- Удалили data-bs-ride="carousel" и data-bs-pause="false" -->
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
       <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -16,7 +17,7 @@
     </div>
 
     <div class="carousel-inner">
-      <!-- Первый слайд с видео (54 секунды) -->
+      <!-- Оставляем интервалы, они будут использоваться в JavaScript -->
       <div class="carousel-item carousel-video active" data-bs-interval="52000">
         <video id="carousel-video" class="d-block w-100" muted loop>
           <source src="{% static 'blog/videos/Spirit of Azerbaijan 2.mp4' %}" type="video/mp4">
@@ -28,7 +29,6 @@
         </div>
       </div>
 
-      <!-- Второй слайд (5 секунд) -->
       <div class="carousel-item" data-bs-interval="5000">
         <img src="{% static 'blog/images/photo3.jpg' %}" class="d-block w-100" alt="Maiden Tower">
         <div class="carousel-caption d-none d-md-block">
@@ -37,7 +37,6 @@
         </div>
       </div>
 
-      <!-- Третий слайд (5 секунд) -->
       <div class="carousel-item" data-bs-interval="5000">
         <img src="{% static 'blog/images/photo1.jpg' %}" class="d-block w-100" alt="Mountains">
         <div class="carousel-caption d-none d-md-block">
@@ -46,7 +45,6 @@
         </div>
       </div>
 
-      <!-- Четвертый слайд (5 секунд) -->
       <div class="carousel-item" data-bs-interval="5000">
         <img src="{% static 'blog/images/photo2.jpg' %}" class="d-block w-100" alt="Haydar Aliyev Center">
         <div class="carousel-caption d-none d-md-block">
