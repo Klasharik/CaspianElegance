@@ -1,23 +1,16 @@
-/*.carousel {
-  flex-grow: 1;
-  flex-shrink: 0;
-  height: calc(100vh - 80px);
-  overflow: hidden;
-}*/
-
+/* SECTION: Carousel */
 .carousel {
-  height: 100vh;
   overflow: hidden;
   position: relative;
+  height: 100vh; 
 }
 
-
-.carousel-inner, 
+.carousel-inner,
 .carousel-item {
   height: 100%;
 }
 
-.carousel-item img, 
+.carousel-item img,
 .carousel-item video {
   width: 100%;
   height: 100% !important;
@@ -26,82 +19,37 @@
 }
 
 .carousel-caption {
-  padding: 20px;
-  max-width: 50%;
   margin: 0 auto;
-  bottom: 10%; /* Position the caption higher up from the bottom */
 }
 
-.carousel-caption h1{
-  font-size: 46px;
-  line-height: 52px;
-  font-weight: 600;
+.carousel-caption h1 {
 }
 
-.carousel-btn{
-  font-size: 17px;
-  font-weight: 500;
-  line-height: 18px;
+.carousel-btn {
   border-width: 2px;
-  margin-top: 25px;
-  --bs-btn-padding-y: 13px;
-  --bs-btn-padding-x: 25px;
 }
 
-.carousel-btn:hover{
+.carousel-btn:hover {
   color: #010e81 !important;
 }
 
-.carousel-control-prev {
-  left: 1.5rem;
-  width: 4rem;
-  height: 4rem;
-  top: 50%; /* Center vertically */
-  transform: translateY(-50%); /* Adjust for vertical centering */
-  opacity: 0.7; /* Optional: Adjust visibility */
-}
-
+.carousel-control-prev,
 .carousel-control-next {
-  right: 1.5rem;
-  width: 4rem;
-  height: 4rem;
-  top: 50%; /* Center vertically */
-  transform: translateY(-50%); /* Adjust for vertical centering */
-  opacity: 0.7; /* Optional: Adjust visibility */
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.7;
 }
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-  width: 1.7rem;
-  height: 1.7rem;
 }
 
-.btn-stop {
-  position: absolute;
-  right: 4vw;
-  bottom: 7vh;
-  width: 40px;
-  height: 40px;
-  background-color: #80808080;
-  border-radius: 0.9rem;
-
-  cursor: pointer;
-  z-index: 1000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
+.btn-stop,
 .btn-mute {
   position: absolute;
-  right: 7vw;
-  bottom: 7vh;
-  width: 40px;
-  height: 40px;
-  background-color: #80808080;
+  background-color: rgba(128, 128, 128, 0.5);
   border-radius: 0.9rem;
-
-
   cursor: pointer;
   z-index: 1000;
   display: flex;
@@ -109,20 +57,124 @@
   align-items: center;
 }
 
-.fa-volume-mute, .fa-volume-up, .fa-pause, .fa-play{
+.fa-volume-mute,
+.fa-volume-up,
+.fa-pause,
+.fa-play {
   color: white;
 }
 
-.btn-mute:hover, .btn-stop:hover {
+.btn-mute:hover,
+.btn-stop:hover {
   background-color: #020b5a;
 }
 
 
+/* Phones (max-width: 575px) */
+@media (max-width: 575px) {
+  .carousel-inner,
+  .carousel-item { height: 100%; }
+  .carousel-item img,
+  .carousel-item video { height: 100% !important; }
+  .carousel-caption { max-width: 90%; bottom: 5%; }
+  .carousel-caption h1 { font-size: 24px; line-height: 28px; }
+  .carousel-btn { font-size: 14px; line-height: 16px; --bs-btn-padding-y: 8px; --bs-btn-padding-x: 12px; margin-top: 12px; }
+  .carousel-control-prev,
+  .carousel-control-next { width: 2.5rem; height: 2.5rem; left: 1rem; right: 1rem; }
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon { width: 1rem; height: 1rem; }
+  .btn-stop,
+  .btn-mute { width: 32px; height: 32px; bottom: 5vh; }
+  .btn-stop { right: 4vw; }
+  .btn-mute { right: 7vw; }
+}
+
+/* Tablets (576px - 991px) */
+@media (min-width: 576px) and (max-width: 991px) {
+  .carousel-item img,
+  .carousel-item video { height: 100% !important; }
+  .carousel-caption { max-width: 70%; bottom: 6%; }
+  .carousel-caption h1 { font-size: 32px; line-height: 36px; }
+  .carousel-btn { font-size: 15px; line-height: 17px; --bs-btn-padding-y: 10px; --bs-btn-padding-x: 18px; margin-top: 16px; }
+  .carousel-control-prev,
+  .carousel-control-next { width: 3rem; height: 3rem; left: 1.2rem; right: 1.2rem; }
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon { width: 1.3rem; height: 1.3rem; }
+  .btn-stop,
+  .btn-mute { width: 36px; height: 36px; bottom: 6vh; }
+  .btn-stop { right: 4vw; }
+  .btn-mute { right: 7vw; }
+}
+
+/* 1366×768 (Desktops default) */
+@media (min-width: 992px) and (max-width: 1919px) {
+  .carousel-caption {
+    max-width: 50%;
+    bottom: 7%;
+  }
+  .carousel-caption h1 {
+    font-size: 46px;
+    line-height: 52px;
+    font-weight: 600;
+  }
+  .carousel-btn {
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 18px;
+    margin-top: 20px;
+    --bs-btn-padding-y: 13px;
+    --bs-btn-padding-x: 25px;
+  }
+  .carousel-control-prev {
+    left: 1.5rem;
+    width: 4rem;
+    height: 4rem;
+  }
+  .carousel-control-next {
+    right: 1.5rem;
+    width: 4rem;
+    height: 4rem;
+  }
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    width: 1.7rem;
+    height: 1.7rem;
+  }
+  .btn-stop {right: 4vw; bottom: 7vh; width: 40px; height: 40px;}
+  .btn-mute {right: 7vw; bottom: 7vh; width: 40px; height: 40px;}
+}
+
+/* Large Monitors (>=1920px) */
+@media (min-width: 1920px) {
+  .carousel-caption { max-width: 40%; bottom: 5%; }
+  .carousel-caption h1 { font-size: 3.5rem; line-height: 4.5rem; }
+
+  .carousel-btn { font-size: 1.3rem; line-height: 1.3rem; --bs-btn-padding-y: 15px; --bs-btn-padding-x: 30px; 
+    margin-top: 1.5rem;}
+
+  .carousel-control-prev {
+    left: 2rem;
+    width: 5rem;
+    height: 5rem;
+  }
+
+  .carousel-control-next {
+    right: 2rem;
+    width: 5rem;
+    height: 5rem;
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon { width: 2.5rem; height: 2.5rem; }
+
+  .btn-stop {right: 4vw; bottom: 7vh; width: 3rem; height: 3rem;}
+  .btn-mute {right: 7vw; bottom: 7vh; width: 3rem; height: 3rem;}
+}
 
 
 
 
-/* Tab heading */
+/* SECTION: Destinations */
 h5.text-center {
   color: #6c757d;
   letter-spacing: .5px;
@@ -171,7 +223,7 @@ h1.text-center {
   height: 2px;
   background-color: transparent;
   transform: translateX(-50%);
-  transition: width 0.3s ease, background-color 0.3s ease;
+  transition: width 0.4s ease, background-color 0.4s ease;
 }
 
 .nav-pills .nav-link.active::after, 
@@ -182,37 +234,334 @@ h1.text-center {
 
 
 /* Cards */
+.card-container{
+  margin-top: 2.5rem;
+}
+
+.card-custom-rounded {
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 0.75rem;
+}
+
+.card-tall {
+  height: 500px;
+}
+
+.card-almost-tall {
+  height: 400px;
+}
+
+.card-short {
+  height: 300px;
+}
+
+.card-tall img, .card-almost-tall img, .card-short img {
+  height: 100%;
+  border-radius: 0.75rem;
+  object-fit: cover;
+}
+
+.card-custom-rounded .card-img-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: 1rem;
+}
+
+
+/* Destinations cards */
+.card-custom-rounded .card-badge {
+  position: absolute;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  top: 1rem;
+  left: 1rem;
+}
+
+.card-custom-rounded .city-badge,
+.card-custom-rounded .relax-and-wellness-badge{
+  background-color: #343b7b;
+}
+
+.card-custom-rounded .nature-badge{
+  background-color: #165703;
+}
+
+.card-custom-rounded .unesco-badge{
+  background-color: #9a2925;
+}
+
+.card-custom-rounded .sport-badge{
+  width: 14%;
+  background-color: #4e56fc;
+}
+
+
+/* Text styles */
 h5.card-title {
+  font-size: 1.2rem;
   font-weight: 600;
 }
 
-p.card-title{
-  font-weight: 300;
+p.card-text{
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: white;
 }
 
-.custom-rounded {
-  border-radius: 18px;
+.see-all-destinations {
+  font-size: 1.2rem;
+  font-weight: 700;
+  align-items: center;
+  color: #020b5a;
+  border-color: #020b5a;
+  border-width: 2px;
+  --bs-btn-padding-y: 1rem;
+  --bs-btn-padding-x: 15%;
+}
+
+.see-all-destinations:hover{
+  background-color: #020b5a;
+  border-color: #020b5a;
+}
+
+
+/* Gradient and shadow*/
+.card-custom-rounded::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0) 60%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+.card-custom-rounded {
+  box-shadow: 0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.5) !important;
+}
+
+
+
+
+
+
+
+
+
+/* SECTION: Tour cards */
+.background-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
   overflow: hidden;
 }
 
-
-
-/* Buta */
-p.custom-text-buta{
-  font-size: 20px;
-  font-weight: 500;
+.background-section > img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
 }
 
-h1.custom-text-buta{
-  font-size: 40px ;
-  font-weight: 600;
-}
-
-.overlay {
+.buta-img-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.65);
+  z-index: -1;
+}
+
+
+/* Scroll Zone*/
+.scroll-zone {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  right: 0;
+  height: 85vh;
+  display: flex;
+  overflow-x: auto;
+  user-select: none; /* Prevent text selection */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE/Edge */
+  cursor: grab;
+  will-change: transform; /* Optimize for animations */
+  scroll-behavior: auto; /* Disable smooth scrolling for direct control */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scroll-zone::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+.scroll-zone.grabbing {
+  cursor: grabbing;
+}
+
+.scroll-item {
+  flex: 0 0 auto;
+  margin: 0 15px;
+  user-select: none;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE/Edge */
+  height: 100%;
+  width: 23%;
+}
+
+/* Custom Rounded Tours Card Grabbing - Changes cursor when dragging */
+.scroll-zone.grabbing .card-custom-rounded-tours {
+  cursor: grabbing;
+}
+
+
+/* Card Tours Image*/
+.card-tours .card-img-top {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Gradient Overlay for Cards */
+.card-custom-rounded-tours::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9) 0%, /* Darker and more opaque */
+    rgba(0, 0, 0, 0) 70% /* Extend gradient further up */
+  );
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.6;
+  transition: opacity 0.4s ease;
+}
+
+.card-custom-rounded-tours:hover::before {
+  opacity: 1;
+}
+
+
+/* Card Tours Body */
+.card-tours .card-body {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.scroll-item .card-tours {
+  background-color: white;
+  overflow: hidden;
+  height: 100%;
+  position: relative;
+}
+
+.card-tours .card-body {
+  height: 100%;
+  position: relative;
+}
+
+.card-tours .title-group {
+  transform: translateY(3.5rem);
+  transition: transform 0.4s ease;
+}
+
+.card-tours .card-title {
+  font-size: 1.25rem;
+}
+
+/* Card Tours Hover Text*/
+.card-tours .hover-text {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.card-tours:hover .title-group {
+  transform: translateY(-0.1rem);
+}
+
+.card-tours:hover .hover-text {
+  opacity: 1;
+}
+
+
+/* Text Block*/
+.text-block {
+  width: 18%;
+  height: 85vh;
+  color: white;
+  margin-left: 4rem;
+}
+
+.text-block h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.text-block p {
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+
+/* Card Tours Nights - Indicator for tour duration */
+.card-tours-nights {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  line-height: 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  z-index: 10;
+  pointer-events: none;
+}
+
+
+/* Explore Button*/
+.explore-button {
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-width: 1px;
+  border-radius: 1rem;
+  --bs-btn-padding-y: 0.7rem;
+  --bs-btn-padding-x: 1rem;
+}
+
+.explore-button:hover {
+  color: #020b5a;
+}
+
+
+/* Custom Rounded Tours Card - Adds rounded corners and cursor */
+.card-custom-rounded-tours {
+  overflow: hidden;
+  cursor: grab;
+  border-radius: 0.5rem;
+}
+
+/* Card Image Overlay - Positions overlay content on the card */
+.card-custom-rounded-tours .card-img-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: 1rem;
 }
