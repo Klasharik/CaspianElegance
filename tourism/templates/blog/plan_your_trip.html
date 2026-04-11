@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Plan Your Trip{% endblock %}
+
+{% block css_files %}<link rel="stylesheet" href= {% static 'blog/css/plan_your_trip.css' %} >{% endblock %}
+
+{% block content %}
+<section class="hero-image position-relative">
+  <img src= {% static 'blog/images/azerbaijani_map.png' %} 
+       alt="Azerbaijan Travel" 
+       class="img-fluid w-100 h-100 map-image">
+
+  <div class="hero-text position-absolute top-50 start-50 translate-middle text-center">
+    <h1 class="hero-title">Plan Your Journey</h1>
+    <p class="hero-paragraph lead">Discover the elegance of Azerbaijan</p>
+  </div>
+
+  <div class="scroll-indicator position-absolute start-50 translate-middle-x">
+    <span class="scroll-text d-block mb-2">SCROLL</span>
+  </div>
+
+  <!-- линия -->
+  <div class="scroll-line position-absolute start-50 translate-middle-x"></div>
+</section>
+
+<div class="container-fluid px-5 my-5">
+  <!-- row with 3rem horizontal gutter between cols -->
+  <div class="row gx-5">
+    <!-- Main Content -->
+    <div class="col-lg-9">
+      <!-- Search + Sort -->
+      <div class="d-flex align-items-center mb-4 search-bar">
+        <div class="flex-grow-1 me-3">
+          <input type="text" class="form-control form-control-lg place-holder-size" placeholder="Search destinations or collections">
+        </div>
+        <button class="btn btn-dark btn-lg">
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4>Browse the best <strong>453</strong> tours</h4>
+        <div class="d-flex align-items-center">
+          <select class="form-select me-2" style="width: 200px;">
+            <option>Popularity, high to low</option>
+            <option>Price, low to high</option>
+            <option>Duration, short to long</option>
+          </select>
+          <button class="btn btn-outline-secondary me-1"><i class="bi bi-grid-3x3-gap"></i></button>
+          <button class="btn btn-outline-secondary"><i class="bi bi-list"></i></button>
+        </div>
+      </div>
+      <!-- Tour Grid -->
+      <div class="row g-4">
+        <!-- Single Tour Card -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card tour-card position-relative">
+            <img src="{% static 'blog/images/tours/lankaran.jpg' %}" alt="Old City of Baku with ancient stone walls">
+            <span class="badge badge-tour private-tour">Private tour</span>
+            <span class="badge badge-duration">5 days</span>
+            <div class="card-body">
+              <h5 class="card-title">Baku Old City Adventure</h5>
+              <a href="#" class="btn btn-outline-secondary mt-2">from <strong>$1,250</strong> <i class="bi bi-box-arrow-up-right"></i></a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-4">
+          <div class="card tour-card position-relative">
+            <img src={% static 'blog/images/tours/lankaran.jpg' %}  class="card-img-top" alt="Gobustan rock carvings under a clear sky">
+            <span class="badge badge-tour group-tour">Group tour</span>
+            <span class="badge badge-duration">3 days</span>
+            <div class="card-body">
+              <h5 class="card-title">Gobustan Ancient Art Journey</h5>
+              <a href="#" class="btn btn-outline-secondary mt-2">from <strong>$850</strong> <i class="bi bi-box-arrow-up-right"></i></a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-4">
+          <div class="card tour-card position-relative">
+            <img src={% static 'blog/images/tours/lankaran.jpg' %}  class="card-img-top" alt="Flame Towers glowing at night in Baku">
+            <span class="badge badge-tour private-tour">Private tour</span>
+            <span class="badge badge-duration">4 days</span>
+            <div class="card-body">
+              <h5 class="card-title">Modern Baku Skyline Tour</h5>
+              <a href="#" class="btn btn-outline-secondary mt-2">from <strong>$1,100</strong> <i class="bi bi-box-arrow-up-right"></i></a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-4">
+          <div class="card tour-card position-relative">
+            <img src={% static 'blog/images/tours/lankaran.jpg' %}  class="card-img-top" alt="Mud volcanoes in Qobustan desert landscape">
+            <span class="badge badge-tour adventure-tour">Adventure tour</span>
+            <span class="badge badge-duration">2 days</span>
+            <div class="card-body">
+              <h5 class="card-title">Mud Volcanoes Expedition</h5>
+              <a href="#" class="btn btn-outline-secondary mt-2">from <strong>$600</strong> <i class="bi bi-box-arrow-up-right"></i></a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-4">
+          <div class="card tour-card position-relative">
+            <img src={% static 'blog/images/tours/lankaran.jpg' %}  class="card-img-top" alt="Sheki's historic Khan's Palace with stained glass">
+            <span class="badge badge-tour cultural-tour">Cultural tour</span>
+            <span class="badge badge-duration">6 days</span>
+            <div class="card-body">
+              <h5 class="card-title">Silk Road Sheki Escape</h5>
+              <a href="#" class="btn btn-outline-secondary mt-2">from <strong>$1,800</strong> <i class="bi bi-box-arrow-up-right"></i></a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-4">
+          <div class="card tour-card position-relative">
+            <img src={% static 'blog/images/tours/lankaran.jpg' %}  class="card-img-top" alt="Caspian Sea coast with Baku skyline">
+            <span class="badge badge-tour private-tour">Private tour</span>
+            <span class="badge badge-duration">4 days</span>
+            <div class="card-body">
+              <h5 class="card-title">Caspian Sea Serenity</h5>
+              <a href="#" class="btn btn-outline-secondary mt-2">from <strong>$1,300</strong> <i class="bi bi-box-arrow-up-right"></i></a>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+
+    <!-- Sidebar Filters -->
+    <div class="col-lg-3 filters">
+      <div class="filter-box">
+        <h5>Trip duration:</h5>
+        <div class="d-flex gap-2 mb-3">
+          <input type="number" class="form-control" placeholder="min">
+          <input type="number" class="form-control" placeholder="max">
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="smallGroup">
+          <label class="form-check-label" for="smallGroup">Small group tour</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="privateTour">
+          <label class="form-check-label" for="privateTour">Private tour</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="sharedTour">
+          <label class="form-check-label" for="sharedTour">Shared tour</label>
+        </div>
+        <div class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" id="cruise">
+          <label class="form-check-label" for="cruise">Cruise</label>
+        </div>
+        <h5>Price of tours: $ USD</h5>
+        <div class="d-flex gap-2 mb-3">
+          <input type="number" class="form-control" placeholder="min">
+          <input type="number" class="form-control" placeholder="max">
+        </div>
+        <a href="#" class="reset-filters text-dark mb-3"><i class="bi bi-arrow-clockwise"></i> Reset all filters</a>
+        <hr>
+        <button class="btn btn-primary w-100">Create new trip</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% include 'footer.html'%}
+
+{% endblock %}

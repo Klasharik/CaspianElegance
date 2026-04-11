@@ -1,0 +1,370 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Discover Azerbaijan{% endblock %}
+
+{% block css_files %} <link rel="stylesheet" href="{% static 'blog/css/index.css' %}"> {% endblock %}
+
+{% block content %}
+<div class="w-100 caroussel-section">
+  <div id="carouselExampleCaptions" class="carousel slide">
+    <!-- Slides buttons -->
+    <div class="carousel-indicators">
+      {% for item in carousel_items %}
+      <button type="button"
+              data-bs-target="#carouselExampleCaptions"
+              data-bs-slide-to="{{ forloop.counter0 }}"
+              {% if forloop.first %}class="active" aria-current="true"{% endif %}
+              aria-label="Slide {{ forloop.counter }}">
+      </button>
+      {% endfor %}
+    </div>
+
+    <!-- Slides -->
+    <div class="carousel-inner">
+      {% for item in carousel_items %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %} {% if item.media_type == 'video' %}carousel-video{% endif %}"
+          data-bs-interval="{{ item.interval }}">
+
+        {% if item.media_type == 'video' %}
+          <!-- id="carousel-video" один раз → JS работает корректно -->
+          <video id="carousel-video" class="d-block w-100" muted loop>
+            <source src="{{ item.file.url }}" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <div class="position-absolute bottom-0 end-0 p-3">
+            <button id="mute-btn" class="btn btn-mute me-2"><i class="fa fa-volume-mute"></i></button>
+            <button id="play-pause-btn" class="btn btn-stop"><i class="fa fa-pause"></i></button>
+          </div>
+
+        {% else %}
+          <img src="{{ item.file.url }}" class="d-block w-100" alt="{{ item.title }}">
+          {% if item.title %}
+          <div class="carousel-caption d-none d-md-block">
+            <h1>{{ item.title }}</h1>
+            {% if item.button_text %}
+            <a href="{{ item.button_link }}">
+              <button type="button" class="carousel-btn btn btn-outline-light btn-lg rounded-pill">
+                {{ item.button_text }}
+              </button>
+            </a>
+            {% endif %}
+          </div>
+          {% endif %}
+        {% endif %}
+
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Prev/Next -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+
+
+<div class="destinations-section">
+  <section class="container my-5">
+    <h5 class="text-center">Destinations</h5>
+    <h1 class="text-center mb-4">Get inspired</h1>
+
+    <!-- Nav-pills -->
+    <ul class="nav nav-pills d-flex justify-content-center mb-4 w-100" id="destinationTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active bg-transparent border-0 shadow-none" id="highlights-tab" data-bs-toggle="pill" data-bs-target="#highlights" type="button" role="tab" aria-controls="highlights" aria-selected="true">Highlights</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link bg-transparent border-0 shadow-none" id="cities-tab" data-bs-toggle="pill" data-bs-target="#cities" type="button" role="tab" aria-controls="cities" aria-selected="false">Cities</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link bg-transparent border-0 shadow-none" id="unesco-tab" data-bs-toggle="pill" data-bs-target="#unesco" type="button" role="tab" aria-controls="unesco" aria-selected="false">UNESCO Heritage</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link bg-transparent border-0 shadow-none" id="villages-tab" data-bs-toggle="pill" data-bs-target="#culture" type="button" role="tab" aria-controls="culture" aria-selected="false">Culture</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link bg-transparent border-0 shadow-none" id="regions-tab" data-bs-toggle="pill" data-bs-target="#regions" type="button" role="tab" aria-controls="regions" aria-selected="false">Regions</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link bg-transparent border-0 shadow-none" id="villages-tab" data-bs-toggle="pill" data-bs-target="#culinary" type="button" role="tab" aria-controls="culinary" aria-selected="false">Culinary</button>
+      </li>
+    </ul>
+    
+    <!-- Tabs-content -->
+    <div class="tab-content card-container" id="destinationTabContent">
+      
+      {% for tab_name, columns in attractions.items %}
+      <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" 
+          id="{{ tab_name }}" 
+          role="tabpanel">
+        <div class="row g-4">
+          
+          <!-- Column 1 -->
+          <div class="col-md-4 mb-4">
+            {% for item in columns.col1 %}
+            <div class="card bg-transparent border-0 position-relative card-custom-rounded {{ item.card_size }} shadow-sm mb-4">
+              <img src="{{ item.image.url }}" class="card-img-top rounded-top" alt="{{ item.name }}">
+              <span class="card-badge badge {{ item.badge }}-badge">{{ item.get_badge_display }}</span>
+              <div class="card-img-overlay d-flex flex-column justify-content-end">
+                <h5 class="card-title text-white">{{ item.name }}</h5>
+                <p class="card-text text-white">{{ item.description }}</p>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+
+          <!-- Column 2 -->
+          <div class="col-md-4 mb-4">
+            {% for item in columns.col2 %}
+            <div class="card bg-transparent border-0 position-relative card-custom-rounded {{ item.card_size }} shadow-sm mb-4">
+              <img src="{{ item.image.url }}" class="card-img-top rounded-top" alt="{{ item.name }}">
+              <span class="card-badge badge {{ item.badge }}-badge">{{ item.get_badge_display }}</span>
+              <div class="card-img-overlay d-flex flex-column justify-content-end">
+                <h5 class="card-title text-white">{{ item.name }}</h5>
+                <p class="card-text text-white">{{ item.description }}</p>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+
+          <!-- Column 3 -->
+          <div class="col-md-4 mb-4">
+            {% for item in columns.col3 %}
+            <div class="card bg-transparent border-0 position-relative card-custom-rounded {{ item.card_size }} shadow-sm mb-4">
+              <img src="{{ item.image.url }}" class="card-img-top rounded-top" alt="{{ item.name }}">
+              <span class="card-badge badge {{ item.badge }}-badge">{{ item.get_badge_display }}</span>
+              <div class="card-img-overlay d-flex flex-column justify-content-end">
+                <h5 class="card-title text-white">{{ item.name }}</h5>
+                <p class="card-text text-white">{{ item.description }}</p>
+              </div>
+            </div>
+            {% endfor %}
+
+            <!-- See all -->
+            {% if tab_name != 'highlights' %}
+            <div class="row mt-4">
+              <div class="col-12">
+                <a href="#" class="see-all-destinations btn btn-outline-dark btn-sm rounded-pill">
+                  {{columns.see_all}} 
+                  <i class="bi bi-arrow-right ms-2"></i>
+                </a>
+              </div>
+            </div>
+            {% endif %}
+
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+  </section>
+</div>
+
+
+<div class="background-section">
+  <img src={% static "blog/images/buta.jpg" %} alt="Azerbaijan Background">
+  <div class="buta-img-overlay"></div>
+  <div class="scroll-zone" id="scrollZone">
+    <!-- Text block -->
+    <div class="scroll-item text-block">
+      <h1>Explore<br>Our<br>Trips</h1>
+      <p>
+        There's no time like the present to plan a trip to Azerbaijan,
+        with its constant energy and endless supply of sights,
+        attractions and activities. Don't wait—a second spent in
+        Azerbaijan is just too valuable to miss.
+      </p>
+    </div>
+    
+    <!-- Cards -->
+    <div class="scroll-item card card-tours bg-transparent border-0 card-custom-rounded-tours">
+      <img src={% static 'blog/images/tours/icheri-sheher.jpg' %} class="card-img-top" alt="Gobustan">
+      <div class="card-img-overlay card-body d-flex flex-column justify-content-end">
+        <span class="card-tours-nights">2 nights</span>
+        <div class="title-group">
+          <h5 class="card-title text-white">Baku - capital city featuring modern and ancient architecture.</h5>
+          <p class="hover-text">Two nights in gorgeous City Of Winds.<br>From $1500 per person excl. flights.</p>
+        </div>
+        <div class="explore-trip-button">
+          <a href="#" class="btn explore-button btn-outline-light btn-sm">Explore trip</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="scroll-item card card-tours bg-transparent border-0 card-custom-rounded-tours">
+      <img src={% static 'blog/images/tours/gobustan.jpg' %} class="card-img-top" alt="Gobustan">
+      <div class="card-img-overlay card-body d-flex flex-column justify-content-end">
+        <span class="card-tours-nights">2 nights</span>
+        <div class="title-group">
+          <h5 class="card-title text-white">Gobustan Rock Art - prehistoric wonders near Baku.</h5>
+          <p class="hover-text">Exploring ancient petroglyphs.<br>From $1600 per person excl. flights.</p>
+        </div>
+        <div class="explore-trip-button">
+          <a href="#" class="btn explore-button btn-outline-light btn-sm">Explore trip</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="scroll-item card card-tours bg-transparent border-0 card-custom-rounded-tours">
+      <img src={% static 'blog/images/tours/northern-toure.jpg' %} class="card-img-top" alt="Northern Route">
+      <div class="card-img-overlay card-body d-flex flex-column justify-content-end">
+        <span class="card-tours-nights">3 nights</span>
+        <div class="title-group">
+          <h5 class="card-title text-white">Northern Route - explore the majestic Caucasus Mountains.</h5>
+          <p class="hover-text">Guba and Khinalug villages.<br>From $1800 per person excl. flights.</p>
+        </div>
+        <div class="explore-trip-button">
+          <a href="#" class="btn explore-button btn-outline-light btn-sm">Explore trip</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="scroll-item card card-tours bg-transparent border-0 card-custom-rounded-tours">
+      <img src={% static 'blog/images/tours/caspian.jpg' %} class="card-img-top" alt="Caspian Sea">
+      <div class="card-img-overlay card-body d-flex flex-column justify-content-end">
+        <span class="card-tours-nights">4 nights</span>
+        <div class="title-group">
+          <h5 class="card-title text-white">Caspian Sea Adventure - coastal beauty and relaxation.</h5>
+          <p class="hover-text">The shores of east coast.<br>From $2200 per person excl. flights.</p>
+        </div>
+        <div class="explore-trip-button">
+          <a href="#" class="btn explore-button btn-outline-light btn-sm">Explore trip</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="scroll-item card card-tours bg-transparent border-0 card-custom-rounded-tours">
+      <img src={% static 'blog/images/tours/sheki.jpg' %} class="card-img-top" alt="Sheki">
+      <div class="card-img-overlay card-body d-flex flex-column justify-content-end">
+        <span class="card-tours-nights">3 nights</span>
+        <div class="title-group">
+          <h5 class="card-title text-white">Sheki Silk Road - palaces and artisan crafts.</h5>
+          <p class="hover-text">Nights in charming city of Sheki.<br>From $1900 per person excl. flights.</p>
+        </div>
+        <div class="explore-trip-button">
+          <a href="#" class="btn explore-button btn-outline-light btn-sm">Explore trip</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-item card card-tours bg-transparent border-0 card-custom-rounded-tours">
+      <img src={% static 'blog/images/tours/absheron.jpg' %} class="card-img-top" alt="Absheron">
+      <div class="card-img-overlay card-body d-flex flex-column justify-content-end">
+        <span class="card-tours-nights">2 nights</span>
+        <div class="title-group">
+          <h5 class="card-title text-white">Absheron Peninsula - fire temples and castles.</h5>
+          <p class="hover-text">Uncovering Baku’s nearby treasures.<br>From $1550 per person excl. flights.</p>
+        </div>
+        <div class="explore-trip-button">
+          <a href="#" class="btn explore-button btn-outline-light btn-sm">Explore trip</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-item card card-tours bg-transparent border-0 card-custom-rounded-tours">
+      <img src={% static 'blog/images/tours/lankaran.jpg' %} class="card-img-top" alt="Lankaran">
+      <div class="card-img-overlay card-body d-flex flex-column justify-content-end">
+        <span class="card-tours-nights">3 nights</span>
+        <div class="title-group">
+          <h5 class="card-title text-white">Lankaran Southern Escape - tea plantations and beaches.</h5>
+          <p class="hover-text">Lush and sunny region of Lankaran.<br>From $2000 per person excl. flights.</p>
+        </div>
+        <div class="explore-trip-button">
+          <a href="#" class="btn explore-button btn-outline-light btn-sm">Explore trip</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<div class="py-5" style="background-color: #fff;">
+  <div class="container">
+    <h5 class="mb-3">What Our Travelers Say</h5>
+    <p class="mb-4">Here’s what travelers from around the globe have experienced with Caspian Elegance.</p>
+    <div class="row g-4">
+      <!-- Review 1 -->
+      <div class="col-sm-6 col-lg-3">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body">
+            <p class="card-text text-dark">“Absolutely loved our Baku city tour—so much history and amazing food!”</p>
+            <p class="mb-1"><strong>Aysha K.</strong>, Azerbaijan, Mar 2025</p>
+            <p>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-half text-warning"></i>
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- Review 2 -->
+      <div class="col-sm-6 col-lg-3">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body">
+            <p class="card-text text-dark">“The mountain trails were breathtaking. Guide was knowledgeable and friendly!”</p>
+            <p class="mb-1"><strong>Vladimir S.</strong>, Russia, Feb 2025</p>
+            <p>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-fill text-warning"></i>
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- Review 3 -->
+      <div class="col-sm-6 col-lg-3">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body">
+            <p class="card-text text-dark">“Incredible service from start to finish. Highly recommend Caspian Elegance!”</p>
+            <p class="mb-1"><strong>Leila A.</strong>, Lebanon, Apr 2025</p>
+            <p>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-fill text-warning"></i>
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- Review 4 -->
+      <div class="col-sm-6 col-lg-3">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body">
+            <p class="card-text text-dark">“Our family trip was seamless. Kids loved the interactive map and routes!”</p>
+            <p class="mb-1"><strong>Daniel P.</strong>, USA, Jan 2025</p>
+            <p>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-half text-warning"></i>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% include  'footer.html' %}
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'blog/js/index.js' %}"></script>
+<script src="{% static 'blog/js/scroll.js' %}"></script>
+{% endblock %}

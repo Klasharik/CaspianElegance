@@ -1,0 +1,212 @@
+.hero-image {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.map-image {
+  object-fit: cover;
+}
+
+.hero-title{
+  font-size: 3rem;
+  font-weight: 600;
+  color: white;
+}
+
+.hero-paragraph{
+  font-size: 1.3rem;
+  color: white;
+}
+
+.scroll-indicator {
+  bottom: 1.9rem;
+  z-index: 3;
+}
+
+.scroll-text {
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.scroll-line {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  background: white;
+  z-index: 2;
+  top: calc(100vh - 2rem);
+  height: 0;
+  opacity: 1;
+
+  animation: slideLine 2s ease-in-out infinite;
+}
+
+@keyframes slideLine {
+  0% {
+    top: calc(100vh - 2rem);
+    height: 0;
+    opacity: 1;
+  }
+  50% {
+    top: calc(100vh - 2rem);
+    height: 2rem;
+    opacity: 1;
+  }
+  100% {
+    top: calc(100vh);
+    height: 0;
+    opacity: 0;
+  }
+}
+
+
+
+
+
+.place-holder-size {
+  font-size: 1rem;
+}
+
+/* Card styling with full image background */
+.tour-card {
+  position: relative;
+  overflow: hidden;
+  height: 350px;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Make image cover the entire card */
+.tour-card img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+/* Create gradient overlay from bottom to top */
+.tour-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9) 0%, /* Darker and more opaque */
+    rgba(0, 0, 0, 0) 70% /* Extend gradient further up */
+  );
+  z-index: 2;
+}
+
+/* Make card body content appear above the image and gradient */
+.tour-card .card-body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  padding: 1.5rem;
+  color: white;
+  background-color: transparent;
+}
+
+/* Badge styling */
+.badge-tour {
+  position: absolute;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  top: 0.8rem;
+  left: 0.8rem;
+  z-index: 3;
+  padding: 0.35rem 0.65rem;
+}
+
+.badge-duration {
+  position: absolute;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  top: 0.8rem;
+  right: 0.8rem;
+  z-index: 3;
+  color: white;
+  padding: 0.35rem 0.65rem;
+  border-radius: 0.25rem;
+}
+
+/* Badge colors */
+.private-tour {
+  background-color: #9a2925;
+  color: white;
+}
+
+.group-tour {
+  background-color: #343b7b;
+  color: white;
+}
+
+.adventure-tour {
+  background-color: #165703;
+  color: white;
+}
+
+.cultural-tour {
+  background-color: #9a2925;
+  color: white;
+}
+
+/* Button styling for better visibility on dark background */
+.tour-card .btn-outline-secondary {
+  color: white;
+  border-color: white;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.tour-card .btn-outline-secondary:hover {
+  background-color: white;
+  color: #020b5a;
+}
+
+/* Card title and text styling */
+.tour-card .card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* Search bar and filters styling */
+.search-bar .form-control {
+  height: 3rem;
+  padding: 0.5rem 1rem;
+}
+
+.search-bar .btn {
+  height: 3rem;
+  padding: 0 1.25rem;
+}
+
+.filters {
+  background-color: #f5f5f5;
+  height: 1%;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.filters .form-control, .filters .form-check {
+  margin-bottom: 1rem;
+}
+
+.reset-filters {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}

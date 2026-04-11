@@ -11,7 +11,6 @@ body {
 
 /* SECTION: Navbar core styling */
 .navbar {
-  background-color: transparent !important;
   height: 6.25rem;
   position: absolute;
   top: 0;
@@ -103,6 +102,16 @@ body {
 
 .navbar .nav-link.active-link::after {
   width: var(--text-width);
+}
+
+.navbar-white {
+  background-color: white !important;
+  color: black;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2000;
 }
 
 
@@ -225,7 +234,7 @@ body {
   font-weight: 400;
   margin: 0;
   font-size: 0.875rem;
-  color: #495057 ;
+  color: gray !important;
 }
 
 /*Map*/
