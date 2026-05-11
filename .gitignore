@@ -1,0 +1,34 @@
+# Ignore pictures
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+*.svg
+*.webp
+*.ico
+*.tiff
+*.tif
+
+# Ignore videos
+*.mp4
+*.avi
+*.mov
+*.wmv
+*.flv
+*.mkv
+*.webm
+*.m4v
+*.mpeg
+*.mpg
+
+# Python
+__pycache__/
+*.pyc
+.env
+venv/
+media/
+
+# База данных
+*.sqlite3
+db.sqlite3

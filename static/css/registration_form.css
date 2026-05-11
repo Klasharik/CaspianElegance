@@ -1,0 +1,72 @@
+/* SECTION: Navbar */
+.navbar-brand,
+.navbar .nav-link {
+  color: black !important;
+}
+
+.navbar {
+  background-color: white !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* SECTION: Registration form */
+.registration-bg {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.registration-form {
+  width: 80%;
+  margin-top: 7rem;
+}
+
+.registration-label {
+  font-weight: 600;
+  color: #020b5a;
+}
+
+.btn-sing-up {
+  display: flex;
+  justify-content: center;
+  align-items: center;      
+  font-weight: 600;
+  color: #020b5a;
+  border-color: #020b5a;
+  border-width: 2px;
+  height: 2.7rem;
+  width: 100%;
+}
+
+.btn-sing-up:hover {
+  background-color: #020b5a;
+  border-color: #020b5a;
+  color: #fff;
+}
+
+.google-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.btn-google {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-weight: 500;
+  color: black;
+  background-color: #e9ecee;
+  border-width: 2px;
+  height: 2.7rem;
+}
+
+.btn-google:hover {
+  background-color: #020b5a;
+  border-color: #020b5a;
+  color: #fff;
+}

@@ -51,14 +51,14 @@ body {
   --text-width: 50%;
 }
 
-.navbar .search-button{
+.navbar .search-button, .favourites-button{
   font-size: 1.2rem;
-  margin-top: 0.2rem;
+  justify-content: center;
 }
 
 .navbar .sing-in-button{
-  font-size: 1.3rem;
-  margin-top: 0.1rem;
+  font-size: 1.45rem;
+  justify-content: center;
 }
 
 .navbar .language-button{

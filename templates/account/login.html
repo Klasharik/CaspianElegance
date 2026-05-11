@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static socialaccount %}
+
+{% block title %}Login{% endblock %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'css/registration_form.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="registration-bg" style="background-image: url('{% static "blog/images/sing in/line.png" %}');">
+  <div class="overlay registration-form">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+          <div class="card shadow rounded-4">
+            <div class="card-body p-4">
+              <h2 class="card-title registration-label mb-4 text-center">Sign In</h2>
+
+              <form method="post" action="{% url 'account_login' %}">
+                {% csrf_token %}
+                <div class="row g-3">
+                  <div class="col-12">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="login" class="form-control" placeholder="Email Address">
+                    {% for err in form.non_field_errors %}
+                      <div class="text-danger small">{{ err }}</div>
+                    {% endfor %}
+                  </div>
+
+                  <div class="col-12">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" placeholder="Password">
+                  </div>
+
+                  <div class="col-12">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" name="remember" id="remember">
+                      <label class="form-check-label" for="remember">Remember me</label>
+                    </div>
+                  </div>
+
+                  <div class="col-12 text-center mt-4">
+                    <button type="submit" class="btn btn-outline-dark btn-sing-up px-4 py-2 rounded-pill w-100">
+                      Sign In
+                    </button>
+                  </div>
+                </div>
+              </form>
+
+              <div class="d-flex align-items-center my-4">
+                <div class="border-bottom flex-grow-1"></div>
+                <span class="mx-3 text-muted small text-uppercase">or</span>
+                <div class="border-bottom flex-grow-1"></div>
+              </div>
+
+              <div class="text-center mb-4">
+                <a href="{% provider_login_url 'google' %}" class="btn rounded-pill btn-google w-100">
+                  <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="google-icon me-2" style="width: 20px;">
+                  <span>Continue with Google</span>
+                </a>
+              </div>
+
+              <div class="text-center">
+                <small class="text-muted">Don't have an account? 
+                  <a href="{% url 'account_signup' %}" class="text-decoration-none fw-bold">Sign up</a>
+                </small>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,16 +1,14 @@
 from django import forms
+from allauth.account.forms import SignupForm
 
-class RegistrationForm(forms.Form):
-    first_name = forms.CharField(label='First Name', max_length=100, required=True)
-    last_name = forms.CharField(label='Last Name', max_length=100, required=True)
-    email = forms.EmailField(label='Email', required=True)
-    password = forms.CharField(label='Password', widget=forms.PasswordInput, required=True)
-    confirm_password = forms.CharField(label='Confirm Password', widget=forms.PasswordInput, required=True)
-    agree = forms.BooleanField(label='I agree to the Terms and Conditions', required=True)
 
-    def clean(self):
-        cleaned_data = super().clean()
-        password = cleaned_data.get("password")
-        confirm_password = cleaned_data.get("confirm_password")
-        if password and confirm_password and password != confirm_password:
-            self.add_error('confirm_password', "Passwords do not match.")
+class CustomSignupForm(SignupForm):
+    first_name = forms.CharField(max_length=30, required=True, label='First Name')
+    last_name = forms.CharField(max_length=30, required=True, label='Last Name')
+
+    def save(self, request):
+        user = super().save(request)
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.save()
+        return user

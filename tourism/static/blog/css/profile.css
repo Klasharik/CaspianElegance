@@ -1,0 +1,58 @@
+/* SECTION: Navbar */
+.navbar-brand,
+.navbar .nav-link {
+  color: black !important;
+}
+
+.navbar {
+  background-color: white !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.registration-bg {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-form{
+  width: 80%;
+  margin-top: 7rem;
+}
+
+.btn-favourites {
+  display: flex;
+  justify-content: center;
+  align-items: center;      
+  font-weight: 600;
+  color: #020b5a;
+  border-color: #020b5a;
+  border-width: 2px;
+  height: 2.7rem;
+  width: 100%;
+}
+
+.btn-favourites:hover {
+  background-color: #020b5a;
+  border-color: #020b5a;
+  color: #fff;
+}
+
+.btn-sign-out {
+  display: inline-block;
+  justify-content: center;
+  align-items: center;      
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: red;
+  margin-top: 0.5rem;
+  text-decoration: none;
+}
+
+.btn-sign-out:hover {
+  color: rgb(209, 0, 0);
+}

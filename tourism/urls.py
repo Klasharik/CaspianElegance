@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
     path("", views.index, name="index"),
     path("plan-your-trip/", views.plan_your_trip, name="plan-your-trip"),
-    path('register/', views.register, name='register'),
-    path('success/', lambda request: render(request, 'success.html'), name='registration_success'),
+    path('profile/', views.profile, name='profile'),
+    path('favourites/', views.favourites, name='favourites'),
+    path('favourite/<str:item_type>/<int:item_id>/', views.toggle_favourite, name='toggle_favourite'),
 ]

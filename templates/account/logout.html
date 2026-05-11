@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Logout{% endblock %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'css/registration_form.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="registration-bg" style="background-image: url('{% static "blog/images/sing in/line.png" %}');">
+  <div class="overlay registration-form">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+          <div class="card shadow rounded-4">
+            <div class="card-body p-4 text-center">
+              <h2 class="card-title registration-label mb-4">Sign Out</h2>
+              
+              <p class="text-muted mb-4">Are you sure you want to sign out?</p>
+
+              <form method="post" action="{% url 'account_logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-dark btn-sing-up px-4 py-2 rounded-pill w-100">
+                  Sign Out
+                </button>
+              </form>
+
+              <div class="text-center mt-3">
+                <small class="text-muted">
+                  <a href="{% url 'profile' %}" class="text-decoration-none fw-bold">Cancel</a>
+                </small>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

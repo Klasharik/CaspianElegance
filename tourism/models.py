@@ -1,4 +1,6 @@
 from django.db import models
+from django.conf import settings
+from colorfield.fields import ColorField
 
 # Create your models here.
 class CarouselItem(models.Model):
@@ -16,46 +18,49 @@ class CarouselItem(models.Model):
     interval = models.PositiveIntegerField(default=5000) # 52000 для видео, 5000 для фото
 
     class Meta:
-        ordering = ['order']  # сортировка по порядку
+        ordering = ['order']  # sort by order
         verbose_name = 'Carousel Item'
-        verbose_name_plural = 'Carousel (Home)'  # ← меняй на что хочешь
+        verbose_name_plural = 'Carousel (Home)'  # name change
 
     def __str__(self):
         return f"{self.media_type} - {self.title or 'Video slide'}"
 
+class Tab(models.Model):
+    name = models.CharField(max_length=100)
+    slug = models.SlugField(unique=True)
+    show_see_all = models.BooleanField(default=True)
+    see_all_text = models.CharField(max_length=100, blank=True)
+    order = models.PositiveIntegerField(default=0)
 
+    class Meta:
+        ordering = ['order']
+        verbose_name = 'Tab'
+        verbose_name_plural = 'Tabs (Get Inspired/Home)'
+
+    def __str__(self):
+        return self.name
+
+class Badge(models.Model):
+    name = models.CharField(max_length=100) 
+    slug = models.SlugField(unique=True)
+    color = ColorField(default='#5d646b')
+
+    class Meta:
+        verbose_name = 'Badge'
+        verbose_name_plural = 'Badges (Get Inspired/Home)'
+
+    def __str__(self):
+        return self.name
 
 def attraction_upload_path(instance, filename):
-    return f'attractions/{instance.tab}/{filename}'
+    return f'attractions/{instance.tab.slug}/{filename}'
 
 class Attraction(models.Model):
-    
-    TAB_CHOICES = [
-        ('highlights', 'Highlights'),
-        ('cities', 'Cities'),
-        ('unesco', 'UNESCO Heritage'),
-        ('culture', 'Culture'),
-        ('regions', 'Regions'),
-        ('culinary', 'Culinary'),
-    ]
-
-    BADGE_CHOICES = [
-        ('city', 'City'),
-        ('nature', 'Nature'),
-        ('unesco', 'UNESCO'),
-        ('sport', 'Sport'),
-        ('relax-and-wellness', 'Relax and Wellness'),
-        ('culture', 'Culture'),
-        ('culinary', 'Culinary'),
-        ('region', 'Region'),
-    ]
-
     SIZE_CHOICES = [
         ('card-tall', 'Tall'),
         ('card-almost-tall', 'Almost Tall'),
         ('card-short', 'Short'),
     ]
-
     COLUMN_CHOICES = [
         (1, 'Column 1'),
         (2, 'Column 2'),
@@ -65,8 +70,8 @@ class Attraction(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
     image = models.ImageField(upload_to=attraction_upload_path)
-    tab = models.CharField(max_length=20, choices=TAB_CHOICES)
-    badge = models.CharField(max_length=30, choices=BADGE_CHOICES)
+    tab = models.ForeignKey(Tab, on_delete=models.CASCADE, related_name='attractions')
+    badge = models.ForeignKey(Badge, on_delete=models.SET_NULL, null=True, related_name='attractions')
     card_size = models.CharField(max_length=20, choices=SIZE_CHOICES, default='card-short')
     column = models.IntegerField(choices=COLUMN_CHOICES, default=1)
     order = models.PositiveIntegerField(default=0)
@@ -74,7 +79,62 @@ class Attraction(models.Model):
     class Meta:
         ordering = ['column', 'order']
         verbose_name = 'Attraction'
-        verbose_name_plural = 'Get Insipred (Home)'  # ← меняй на что хочешь
+        verbose_name_plural = 'Get Inspired (Home)'
 
     def __str__(self):
         return f"{self.name} ({self.tab})"
+
+class Tour(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.CharField(max_length=300)
+    image = models.ImageField(upload_to='tours/')
+    nights = models.PositiveIntegerField()
+    price = models.DecimalField(max_digits=10, decimal_places=0)
+    order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['order']
+        verbose_name = 'Tour'
+        verbose_name_plural = 'Tours (Home)'
+
+    def __str__(self):
+        return self.title
+
+class Favourite(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='favourites'
+    )
+    attraction = models.ForeignKey(
+        Attraction,
+        on_delete=models.CASCADE,
+        null=True, blank=True,
+        related_name='favourited_by'
+    )
+    tour = models.ForeignKey(
+        Tour,
+        on_delete=models.CASCADE,
+        null=True, blank=True,
+        related_name='favourited_by'
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = 'Favourites'
+        constraints = [
+            models.UniqueConstraint(fields=['user', 'attraction'], name='unique_user_attraction_favourite'),
+            models.UniqueConstraint(fields=['user', 'tour'], name='unique_user_tour_favourite'),
+            models.CheckConstraint(
+                check=(
+                    (models.Q(attraction__isnull=False) & models.Q(tour__isnull=True)) |
+                    (models.Q(attraction__isnull=True) & models.Q(tour__isnull=False))
+                ),
+                name='favourite_exactly_one_item'
+            ),
+        ]
+
+    def __str__(self):
+        item = self.attraction or self.tour
+        return f"{self.user.email} → {item}"

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Favourites{% endblock %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'blog/css/favourites.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container favourites-form">
+  <h4 style="color: #020b5a; font-weight: 600;">My Favourites</h4>
+  <hr>
+
+  {% if favourites %}
+    <div class="row g-4">
+      {% for fav in favourites %}
+        {% if fav.attraction %}
+        <div class="col-md-4">
+          <div class="card rounded-4 shadow-sm overflow-hidden">
+            <img src="{{ fav.attraction.image.url }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+            <div class="card-body">
+              <h6>{{ fav.attraction.name }}</h6>
+              <p class="text-muted small">{{ fav.attraction.description|truncatewords:10 }}</p>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+
+        {% if fav.tour %}
+        <div class="col-md-4">
+          <div class="card rounded-4 shadow-sm overflow-hidden">
+            <img src="{{ fav.tour.image.url }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+            <div class="card-body">
+              <h6>{{ fav.tour.title }}</h6>
+              <p class="text-muted small">{{ fav.tour.nights }} nights · from ${{ fav.tour.price }}</p>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+  {% else %}
+    <div class="text-center text-muted py-5">
+      <i class="bi bi-heart" style="font-size: 3rem;"></i>
+      <p class="mt-3">No favourites yet. Explore and save places you love.</p>
+      <a href="/" class="btn btn-outline-dark rounded-pill px-4 mt-2">Explore</a>
+    </div>
+  {% endif %}
+
+</div>
+{% endblock %}

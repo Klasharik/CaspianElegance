@@ -708,22 +708,37 @@
                     href="{% url 'plan-your-trip' %}">PLAN YOUR TRIP</a>
                 </li>
               </ul>
-
+              
               <div class="ms-auto d-flex align-items-center">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav d-flex flex-row align-items-center">
                   <!-- Search Icon -->
                   <li class="nav-item">
                     <a href="#" class="nav-link search-button" title="Search">
                       <i class="bi bi-search"></i>
                     </a>
                   </li>
-            
-                  <!-- Sign In Icon -->
-                  <li class="nav-item">
-                    <a href="{% url 'register' %}" class="nav-link sing-in-button" title="Sign In">
-                      <i class="bi bi-person"></i>
-                    </a>
-                  </li>
+                  
+                  <!-- Sing-In and Favourites -->
+                  {% if user.is_authenticated %}
+                    <li class="nav-item">
+                      <a href="{% url 'favourites' %}" class="nav-link">
+                        <i class="bi bi-heart favourites-button"></i>
+                      </a>
+                    </li>
+
+                    <li class="nav-item">
+                      <a href="{% url 'profile' %}" class="nav-link ">
+                        <i class="bi bi-person sing-in-button"></i>
+                      </a>
+                    </li>
+                  
+                  {% else %}
+                    <li class="nav-item">
+                      <a href="{% url 'account_login' %}" class="nav-link">
+                        <i class="bi bi-person"></i>
+                      </a>
+                    </li>
+                  {% endif %}
             
                   <!-- Language Dropdown -->
                   <li class="nav-item dropdown">
@@ -737,8 +752,9 @@
                       <li><a class="dropdown-item" href="#">Azərbaycanca</a></li>
                     </ul>
                   </li>
-                </div>
-              </ul>
+
+                </ul>
+              </div>
           </div>
       </div>
   </nav>

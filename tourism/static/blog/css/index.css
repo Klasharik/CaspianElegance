@@ -26,11 +26,11 @@
 }
 
 .carousel-btn {
-  margin: 2rem;
+  margin: 0.6rem;
   border-width: 2px;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 500;
-  padding: 0.4rem 1.5rem;
+  padding: 0.5rem 1.7rem;
 }
 
 .carousel-btn:hover {
@@ -204,31 +204,6 @@ h1.text-center {
   left: 1rem;
 }
 
-.card-custom-rounded .city-badge,
-.card-custom-rounded .relax-and-wellness-badge{
-  background-color: #343b7b;
-}
-
-.card-custom-rounded .nature-badge{
-  background-color: #165703;
-}
-
-.card-custom-rounded .unesco-badge{
-  background-color: #9a2925;
-}
-
-.card-custom-rounded .sport-badge{
-  background-color: #4e56fc;
-}
-
-.card-custom-rounded .culture-badge{
-  background-color: #920a75;
-}
-
-.card-custom-rounded .region-badge{
-  background-color: #5d646b;
-}
-
 
 
 /* Text styles */
@@ -242,6 +217,27 @@ p.card-text{
   font-weight: 400;
   color: rgb(232, 227, 227) !important;
   font-style: italic;
+}
+
+.btn-favourite-attractions {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+
+  width: 2rem;
+  height: 2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 1.3rem;
+  color: white;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+
+  cursor: pointer;
+  outline: none;
 }
 
 .see-all-destinations {
@@ -492,4 +488,25 @@ p.card-text{
   inset: 0;
   z-index: 2;
   padding: 1rem;
+}
+
+.btn-favourite {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 10;
+
+  width: 2rem;
+  height: 2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 1.3rem;
+  color: white;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+
+  cursor: pointer;
+  outline: none;
 }

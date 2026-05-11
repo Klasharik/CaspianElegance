@@ -1,0 +1,14 @@
+/* SECTION: Navbar */
+.navbar-brand,
+.navbar .nav-link {
+  color: black !important;
+}
+
+.navbar {
+  background-color: white !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.favourites-form{
+  margin-top: 8rem;
+}

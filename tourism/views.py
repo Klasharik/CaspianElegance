@@ -1,67 +1,82 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
-from django.contrib.auth import login
-from .forms import RegistrationForm
-from .models import CarouselItem, Attraction
-
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from .models import CarouselItem, Attraction, Tab, Tour, Favourite
 
 def index(request):
     carousel_items = CarouselItem.objects.all()
-    
-    # TABS
-    see_all_labels = {
-        'cities': 'See all cities',
-        'unesco': 'See all heritages',
-        'culture': 'See all culture',
-        'regions': 'See all regions',
-        'culinary': 'See all culinary',
-    }
-  
-    tabs = ['highlights', 'cities', 'unesco', 'culture', 'regions', 'culinary']
+    tabs = Tab.objects.prefetch_related('attractions').all()
+    tours = Tour.objects.filter(is_active=True)
+
+    favourite_tour_ids = []
+    favourite_attraction_ids = []
+    if request.user.is_authenticated:
+        favourite_tour_ids = list(
+            Favourite.objects.filter(user=request.user, tour__isnull=False)
+            .values_list('tour_id', flat=True)
+        )
+        favourite_attraction_ids = list(
+            Favourite.objects.filter(user=request.user, attraction__isnull=False)
+            .values_list('attraction_id', flat=True)
+        )
+
     attractions = {}
     for tab in tabs:
-        items = Attraction.objects.filter(tab=tab)
-        # Group by columns
-        attractions[tab] = {
+        items = tab.attractions.all()
+        attractions[tab.slug] = {
+            'tab': tab,
             'col1': items.filter(column=1),
             'col2': items.filter(column=2),
             'col3': items.filter(column=3),
-            'see_all': see_all_labels.get(tab, f'See all {tab}'),
         }
 
     return render(request, 'blog/index.html', {
         'carousel_items': carousel_items,
+        'tabs': tabs,
         'attractions': attractions,
+        'tours': tours,
+        'favourite_tour_ids': favourite_tour_ids,
+        'favourite_attraction_ids': favourite_attraction_ids,
     })
-
 
 def plan_your_trip(request):
     return render(request, 'blog/plan_your_trip.html')
 
-def register(request):
-    if request.method == 'POST':
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            # Data from form
-            email = form.cleaned_data['email']
-            first_name = form.cleaned_data['first_name']
-            last_name = form.cleaned_data['last_name']
-            password = form.cleaned_data['password']
 
-            # Create user
-            user = User.objects.create_user(
-                username=email,
-                email=email,
-                password=password,
-                first_name=first_name,
-                last_name=last_name
-            )
 
-            # Automaticly log user
-            login(request, user)
+@login_required
+def profile(request):
+    return render(request, 'blog/profile.html', {
+        'user': request.user,
+    })
 
-            return redirect('registration_success')
+@login_required
+def favourites(request):
+    favs = Favourite.objects.filter(user=request.user).select_related('attraction', 'tour')
+    return render(request, 'blog/favourites.html', {
+        'favourites': favs,
+    })
+
+@login_required
+@require_POST
+def toggle_favourite(request, item_type, item_id):
+    if item_type == 'attraction':
+        fav, created = Favourite.objects.get_or_create(
+            user=request.user,
+            attraction_id=item_id,
+        )
+    elif item_type == 'tour':
+        fav, created = Favourite.objects.get_or_create(
+            user=request.user,
+            tour_id=item_id,
+        )
     else:
-        form = RegistrationForm()
+        return JsonResponse({'error': 'Invalid type'}, status=400)
 
-    return render(request, 'blog/registration_form.html', {'form': form})
+    if not created:
+        fav.delete()
+        return JsonResponse({'status': 'removed'})
+
+    return JsonResponse({'status': 'added'})
+

@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static socialaccount %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'css/registration_form.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="registration-bg" style="background-image: url('{% static "blog/images/sing in/line.png" %}'); background-size: cover; background-position: center; min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+  <div class="overlay registration-form">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+          <div class="card shadow rounded-4">
+            <div class="card-body p-4">
+              <h2 class="card-title registration-label mb-4 text-center">Sign Up</h2>
+
+              <form method="post" action="{% url 'account_signup' %}">
+                {% csrf_token %}
+                <div class="row g-3">
+
+                  <div class="col-12">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" placeholder="Email Address" value="{{ form.email.value|default_if_none:'' }}">
+                    {% for err in form.email.errors %}
+                      <div class="text-danger small">{{ err }}</div>
+                    {% endfor %}
+                  </div>
+
+                  <div class="col-md-6">
+                    <label class="form-label">First Name</label>
+                    <input type="text" name="first_name" class="form-control" placeholder="First Name" value="{{ form.first_name.value|default_if_none:'' }}">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" name="last_name" class="form-control" placeholder="Last Name" value="{{ form.last_name.value|default_if_none:'' }}">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="password1" class="form-control" placeholder="Password">
+                    {% for err in form.password1.errors %}
+                      <div class="text-danger small">{{ err }}</div>
+                    {% endfor %}
+                  </div>
+
+                  <div class="col-md-6">
+                    <label class="form-label">Confirm Password</label>
+                    <input type="password" name="password2" class="form-control" placeholder="Confirm Password">
+                    {% for err in form.password2.errors %}
+                      <div class="text-danger small">{{ err }}</div>
+                    {% endfor %}
+                  </div>
+
+                  <div class="col-12 text-center mt-4">
+                    <button type="submit" class="btn btn-outline-dark btn-sing-up px-4 py-2 rounded-pill w-100">
+                      Sign Up
+                    </button>
+                  </div>
+
+                </div>
+              </form>
+
+              <div class="d-flex align-items-center my-4">
+                <div class="border-bottom flex-grow-1"></div>
+                <span class="mx-3 text-muted small text-uppercase">or</span>
+                <div class="border-bottom flex-grow-1"></div>
+              </div>
+
+              <div class="text-center mb-4">
+                <a href="{% provider_login_url 'google' %}" class="btn rounded-pill btn-google w-100">
+                  <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="google-icon me-2" style="width: 20px;">
+                  <span>Continue with Google</span>
+                </a>
+              </div>
+
+              <div class="text-center">
+                <small class="text-muted">Already have an account? 
+                  <a href="{% url 'account_login' %}" class="text-decoration-none fw-bold">Sign in</a>
+                </small>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
