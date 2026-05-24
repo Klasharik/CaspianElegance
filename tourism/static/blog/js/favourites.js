@@ -14,20 +14,38 @@ function getCookie(name) {
 }
 
 function toggleFav(icon) {
+  if (!icon.dataset.url) {
+    showPopup();
+    return;
+  }
+
   fetch(icon.dataset.url, {
     method: 'POST',
     headers: {
       'X-CSRFToken': getCookie('csrftoken'),
     }
   })
+
   .then(res => res.json())
   .then(data => {
     if (data.status === 'added') {
       icon.className = icon.className.replace('bi-heart', 'bi-heart-fill');
-      icon.style.color = '#e74c3c';
+      icon.style.color = '#ed311c';
     } else {
       icon.className = icon.className.replace('bi-heart-fill', 'bi-heart');
       icon.style.color = 'white';
     }
   });
+}
+
+function showPopup() {
+  document.getElementById('fav-popup').style.display = 'block';
+  document.getElementById('fav-overlay').style.display = 'block';
+  document.body.style.overflow = 'hidden'; // запрещает скролл
+}
+
+function closePopup() {
+  document.getElementById('fav-popup').style.display = 'none';
+  document.getElementById('fav-overlay').style.display = 'none';
+  document.body.style.overflow = ''; // возвращает скролл
 }

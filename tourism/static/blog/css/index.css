@@ -510,3 +510,67 @@ p.card-text{
   cursor: pointer;
   outline: none;
 }
+
+.btn-favourite-attractions, .btn-favourite{
+  transition: color 0.3s ease;
+}
+
+.btn-favourite-attractions:hover, .btn-favourite:hover{
+  color: #ed311c !important;
+}
+
+
+/* Popup */
+html {
+  scrollbar-gutter: stable;
+}
+
+.heart-popup{
+  font-size: 4rem; 
+  color: #020b5a;
+}
+
+.popup-title{
+  font-weight: 600;
+}
+
+.popup-paragraph{
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+.btn-popup-sign-in{
+  font-weight: 600;
+  font-size: 1rem;
+  color: #020b5a;
+  border-color: #020b5a;
+  border-width: 2px;
+  width: 30%;
+}
+
+.btn-popup-sign-in:hover{
+  background-color: #020b5a;
+  border-color: #020b5a;
+  color: #fff;
+}
+
+.btn-popup-sign-up{
+  font-weight: 600;
+  font-weight: 1rem;
+  background-color: #020b5a;
+  border-color: #020b5a;
+  border-width: 2px;
+  width: 30%;
+}
+
+.btn-popup-sign-up:hover{
+  background-color: white;
+  color: #020b5a;
+  border-color: #020b5a;
+}
+
+.btn-cancel-popup{
+  margin-top: 0.7rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}

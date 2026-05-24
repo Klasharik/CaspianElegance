@@ -106,8 +106,12 @@
               
               {% if user.is_authenticated %}
               <i class="bi {% if item.id in favourite_attraction_ids %}bi-heart-fill{% else %}bi-heart{% endif %} btn-favourite-attractions"
-                style="{% if item.id in favourite_attraction_ids %}color: #e74c3c;{% else %}color: white;{% endif %}"
+                style="{% if item.id in favourite_attraction_ids %}color: #e74c3c;{% else %}color: white;{% endif %}"  
                 data-url="{% url 'toggle_favourite' 'attraction' item.id %}"
+                onclick="toggleFav(this)">
+              </i>
+              {% else %}
+              <i class="bi bi-heart btn-favourite-attractions"
                 onclick="toggleFav(this)">
               </i>
               {% endif %}
@@ -132,6 +136,10 @@
                 data-url="{% url 'toggle_favourite' 'attraction' item.id %}"
                 onclick="toggleFav(this)">
               </i>
+              {% else %}
+              <i class="bi bi-heart btn-favourite-attractions"
+                onclick="toggleFav(this)">
+              </i>
               {% endif %}
               
               <div class="card-img-overlay d-flex flex-column justify-content-end">
@@ -147,13 +155,19 @@
             <div class="card bg-transparent border-0 position-relative card-custom-rounded {{ item.card_size }} shadow-sm mb-4">
               <img src="{{ item.image.url }}" class="card-img-top rounded-top" alt="{{ item.name }}">
               <span class="card-badge badge" style="background-color: {{ item.badge.color }}">{{ item.badge.name }}</span>
+              
               {% if user.is_authenticated %}
               <i class="bi {% if item.id in favourite_attraction_ids %}bi-heart-fill{% else %}bi-heart{% endif %} btn-favourite-attractions"
                 style="{% if item.id in favourite_attraction_ids %}color: #e74c3c;{% else %}color: white;{% endif %}"
                 data-url="{% url 'toggle_favourite' 'attraction' item.id %}"
                 onclick="toggleFav(this)">
               </i>
+              {% else %}
+              <i class="bi bi-heart btn-favourite-attractions"
+                onclick="toggleFav(this)">
+              </i>
               {% endif %}
+
               <div class="card-img-overlay d-flex flex-column justify-content-end">
                 <h5 class="card-title text-white">{{ item.name }}</h5>
                 <p class="card-text text-white">{{ item.description }}</p>
@@ -215,6 +229,10 @@
         <i class="bi {% if tour.id in favourite_tour_ids %}bi-heart-fill{% else %}bi-heart{% endif %} btn-favourite"
           style="{% if tour.id in favourite_tour_ids %}color: #e74c3c;{% else %}color: white;{% endif %}"
           data-url="{% url 'toggle_favourite' 'tour' tour.id %}"
+          onclick="toggleFav(this)">
+        </i>
+        {% else %}
+        <i class="bi bi-heart btn-favourite"
           onclick="toggleFav(this)">
         </i>
         {% endif %}
@@ -297,6 +315,22 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Popup -->
+<div id="fav-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:9998;"></div>
+
+<div id="fav-popup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); z-index:9999; width:35%;">
+  <div class="card shadow-lg rounded-4 p-4 text-center">
+    <i class="bi bi-heart heart-popup"></i>
+    <h2 class="popup-title">Save your favourites</h2>
+    <p class="popup-paragraph">Sign in to save places and tours you love</p>
+    <div class="d-flex gap-2 justify-content-center">
+      <a href="{% url 'account_login' %}" class="btn-popup-sign-in btn btn-outline-dark rounded-pill">Sign In</a>
+      <a href="{% url 'account_signup' %}" class="btn-popup-sign-up btn btn-dark rounded-pill">Sign Up</a>
+    </div>
+    <button onclick="closePopup()" class="btn btn-link btn-cancel-popup text-decoration-none">Cancel</button>
   </div>
 </div>
 
