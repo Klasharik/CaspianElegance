@@ -100,14 +100,14 @@
 
           <div class="col-md-4 mb-4">
             {% for item in data.col1 %}
-            <div class="card bg-transparent border-0 position-relative card-custom-rounded {{ item.card_size }} shadow-sm mb-4">
-              <img src="{{ item.image.url }}" class="card-img-top rounded-top" alt="{{ item.name }}">
-              <span class="card-badge badge" style="background-color: {{ item.badge.color }}">{{ item.badge.name }}</span>
+            <div class="card bg-transparent border-0 position-relative card-custom-rounded {{ item.attraction.card_size }} shadow-sm mb-4">
+              <img src="{{ item.attraction.image.url }}" class="card-img-top rounded-top" alt="{{ item.attraction.name }}">
+              <span class="card-badge badge" style="background-color: {{ item.attraction.badge.color }}">{{ item.attraction.badge.name }}</span>
               
               {% if user.is_authenticated %}
-              <i class="bi {% if item.id in favourite_attraction_ids %}bi-heart-fill{% else %}bi-heart{% endif %} btn-favourite-attractions"
-                style="{% if item.id in favourite_attraction_ids %}color: #e74c3c;{% else %}color: white;{% endif %}"  
-                data-url="{% url 'toggle_favourite' 'attraction' item.id %}"
+              <i class="bi {% if item.attraction.id in favourite_attraction_ids %}bi-heart-fill{% else %}bi-heart{% endif %} btn-favourite-attractions"
+                style="{% if item.attraction.id in favourite_attraction_ids %}color: #e74c3c;{% else %}color: white;{% endif %}"  
+                data-url="{% url 'toggle_favourite' 'attraction' item.attraction.id %}"
                 onclick="toggleFav(this)">
               </i>
               {% else %}
@@ -117,8 +117,8 @@
               {% endif %}
               
               <div class="card-img-overlay d-flex flex-column justify-content-end">
-                <h5 class="card-title text-white">{{ item.name }}</h5>
-                <p class="card-text text-white">{{ item.description }}</p>
+                <h5 class="card-title text-white">{{ item.attraction.name }}</h5>
+                <p class="card-text text-white">{{ item.attraction.description }}</p>
               </div>
             </div>
             {% endfor %}
@@ -126,14 +126,14 @@
 
           <div class="col-md-4 mb-4">
             {% for item in data.col2 %}
-            <div class="card bg-transparent border-0 position-relative card-custom-rounded {{ item.card_size }} shadow-sm mb-4">
-              <img src="{{ item.image.url }}" class="card-img-top rounded-top" alt="{{ item.name }}">
-              <span class="card-badge badge" style="background-color: {{ item.badge.color }}">{{ item.badge.name }}</span>
+            <div class="card bg-transparent border-0 position-relative card-custom-rounded {{ item.attraction.card_size }} shadow-sm mb-4">
+              <img src="{{ item.attraction.image.url }}" class="card-img-top rounded-top" alt="{{ item.attraction.name }}">
+              <span class="card-badge badge" style="background-color: {{ item.attraction.badge.color }}">{{ item.attraction.badge.name }}</span>
               
               {% if user.is_authenticated %}
-              <i class="bi {% if item.id in favourite_attraction_ids %}bi-heart-fill{% else %}bi-heart{% endif %} btn-favourite-attractions"
-                style="{% if item.id in favourite_attraction_ids %}color: #e74c3c;{% else %}color: white;{% endif %}"
-                data-url="{% url 'toggle_favourite' 'attraction' item.id %}"
+              <i class="bi {% if item.attraction.id in favourite_attraction_ids %}bi-heart-fill{% else %}bi-heart{% endif %} btn-favourite-attractions"
+                style="{% if item.attraction.id in favourite_attraction_ids %}color: #e74c3c;{% else %}color: white;{% endif %}"
+                data-url="{% url 'toggle_favourite' 'attraction' item.attraction.id %}"
                 onclick="toggleFav(this)">
               </i>
               {% else %}
@@ -143,8 +143,8 @@
               {% endif %}
               
               <div class="card-img-overlay d-flex flex-column justify-content-end">
-                <h5 class="card-title text-white">{{ item.name }}</h5>
-                <p class="card-text text-white">{{ item.description }}</p>
+                <h5 class="card-title text-white">{{ item.attraction.name }}</h5>
+                <p class="card-text text-white">{{ item.attraction.description }}</p>
               </div>
             </div>
             {% endfor %}
@@ -152,14 +152,14 @@
 
           <div class="col-md-4 mb-4">
             {% for item in data.col3 %}
-            <div class="card bg-transparent border-0 position-relative card-custom-rounded {{ item.card_size }} shadow-sm mb-4">
-              <img src="{{ item.image.url }}" class="card-img-top rounded-top" alt="{{ item.name }}">
-              <span class="card-badge badge" style="background-color: {{ item.badge.color }}">{{ item.badge.name }}</span>
+            <div class="card bg-transparent border-0 position-relative card-custom-rounded {{ item.attraction.card_size }} shadow-sm mb-4">
+              <img src="{{ item.attraction.image.url }}" class="card-img-top rounded-top" alt="{{ item.attraction.name }}">
+              <span class="card-badge badge" style="background-color: {{ item.attraction.badge.color }}">{{ item.attraction.badge.name }}</span>
               
               {% if user.is_authenticated %}
-              <i class="bi {% if item.id in favourite_attraction_ids %}bi-heart-fill{% else %}bi-heart{% endif %} btn-favourite-attractions"
-                style="{% if item.id in favourite_attraction_ids %}color: #e74c3c;{% else %}color: white;{% endif %}"
-                data-url="{% url 'toggle_favourite' 'attraction' item.id %}"
+              <i class="bi {% if item.attraction.id in favourite_attraction_ids %}bi-heart-fill{% else %}bi-heart{% endif %} btn-favourite-attractions"
+                style="{% if item.attraction.id in favourite_attraction_ids %}color: #e74c3c;{% else %}color: white;{% endif %}"
+                data-url="{% url 'toggle_favourite' 'attraction' item.attraction.id %}"
                 onclick="toggleFav(this)">
               </i>
               {% else %}
@@ -169,8 +169,8 @@
               {% endif %}
 
               <div class="card-img-overlay d-flex flex-column justify-content-end">
-                <h5 class="card-title text-white">{{ item.name }}</h5>
-                <p class="card-text text-white">{{ item.description }}</p>
+                <h5 class="card-title text-white">{{ item.attraction.name }}</h5>
+                <p class="card-text text-white">{{ item.attraction.description }}</p>
               </div>
             </div>
             {% endfor %}
@@ -244,76 +244,122 @@
   </div>
 </div>
 
-<!-- Review -->
-<div class="py-5" style="background-color: #fff;">
+<!-- Reviews -->
+<div class="py-5" style="background:#fff">
   <div class="container">
-    <h5 class="mb-3">What Our Travelers Say</h5>
-    <p class="mb-4">Here’s what travelers from around the globe have experienced with Caspian Elegance.</p>
+
+    <p style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#020b5a;opacity:0.6;font-weight:500;margin:0 0 10px">Traveler reviews</p>
+    <h2 style="font-size:28px;font-weight:500;color:#020b5a;margin:0 0 10px">What our travelers say</h2>
+    <p style="font-size:14px;color:#6b7280;margin:0 0 40px;max-width:480px">Experiences shared by guests from around the globe who traveled with Caspian Elegance.</p>
+
+    <!-- Summary bar -->
+    <div class="d-flex align-items-center gap-4 mb-5 p-4" style="background:#f8f9ff;border-radius:14px;border:0.5px solid #e0e3f5;flex-wrap:wrap">
+      <div class="text-center" style="min-width:80px">
+        <div style="font-size:48px;font-weight:500;color:#020b5a;line-height:1">4.8</div>
+        <div class="text-warning small">★★★★<span style="opacity:0.35">★</span></div>
+        <div style="font-size:12px;color:#6b7280;margin-top:4px">out of 5</div>
+      </div>
+      <div style="width:0.5px;height:48px;background:#dde0f0"></div>
+      <div class="flex-grow-1 d-flex flex-column gap-1">
+        <div class="d-flex align-items-center gap-2" style="font-size:12px;color:#6b7280">
+          <span style="min-width:12px">5</span>
+          <div style="flex:1;height:4px;background:#e5e7eb;border-radius:2px"><div style="height:4px;border-radius:2px;background:#020b5a;width:72%"></div></div>
+          <span>72%</span>
+        </div>
+        <div class="d-flex align-items-center gap-2" style="font-size:12px;color:#6b7280">
+          <span style="min-width:12px">4</span>
+          <div style="flex:1;height:4px;background:#e5e7eb;border-radius:2px"><div style="height:4px;border-radius:2px;background:#020b5a;width:20%;opacity:0.6"></div></div>
+          <span>20%</span>
+        </div>
+        <div class="d-flex align-items-center gap-2" style="font-size:12px;color:#6b7280">
+          <span style="min-width:12px">3</span>
+          <div style="flex:1;height:4px;background:#e5e7eb;border-radius:2px"><div style="height:4px;border-radius:2px;background:#020b5a;width:6%;opacity:0.4"></div></div>
+          <span>6%</span>
+        </div>
+        <div class="d-flex align-items-center gap-2" style="font-size:12px;color:#6b7280">
+          <span style="min-width:12px">2</span>
+          <div style="flex:1;height:4px;background:#e5e7eb;border-radius:2px"><div style="height:4px;border-radius:2px;background:#020b5a;width:2%;opacity:0.3"></div></div>
+          <span>2%</span>
+        </div>
+      </div>
+      <div style="width:0.5px;height:48px;background:#dde0f0"></div>
+      <div class="text-center" style="min-width:80px">
+        <div style="font-size:28px;font-weight:500;color:#020b5a">248</div>
+        <div style="font-size:12px;color:#6b7280">verified reviews</div>
+      </div>
+    </div>
+
+    <!-- Cards -->
     <div class="row g-4">
+
       <!-- Review 1 -->
       <div class="col-sm-6 col-lg-3">
-        <div class="card h-100 border-0 shadow-sm">
-          <div class="card-body">
-            <p class="card-text text-dark">“Absolutely loved our Baku city tour—so much history and amazing food!”</p>
-            <p class="mb-1"><strong>Aysha K.</strong>, Azerbaijan, Mar 2025</p>
-            <p>
-              <i class="bi bi-star-fill text-warning"></i>
-              <i class="bi bi-star-fill text-warning"></i>
-              <i class="bi bi-star-fill text-warning"></i>
-              <i class="bi bi-star-fill text-warning"></i>
-              <i class="bi bi-star-half text-warning"></i>
-            </p>
+        <div class="h-100 p-4 d-flex flex-column gap-3" style="background:#fff;border:0.5px solid #e5e7eb;border-radius:16px">
+          <div style="color:#f59e0b;font-size:13px">★★★★<span style="opacity:0.35">★</span></div>
+          <div style="font-size:32px;line-height:1;color:#020b5a;opacity:0.15;font-family:Georgia,serif">"</div>
+          <p style="font-size:13.5px;line-height:1.7;color:#374151;flex:1;margin:0">Absolutely loved our Baku city tour — so much history and amazing food at every corner!</p>
+          <hr style="border-color:#f3f4f6;margin:0">
+          <div class="d-flex align-items-center gap-2">
+            <div style="width:36px;height:36px;border-radius:50%;background:#e0e3f5;color:#020b5a;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;flex-shrink:0">AK</div>
+            <div>
+              <p style="font-size:13px;font-weight:500;color:#111827;margin:0">Aysha K.</p>
+              <p style="font-size:11.5px;color:#9ca3af;margin:0">Azerbaijan · Mar 2025</p>
+            </div>
           </div>
         </div>
       </div>
+
       <!-- Review 2 -->
       <div class="col-sm-6 col-lg-3">
-        <div class="card h-100 border-0 shadow-sm">
-          <div class="card-body">
-            <p class="card-text text-dark">“The mountain trails were breathtaking. Guide was knowledgeable and friendly!”</p>
-            <p class="mb-1"><strong>Vladimir S.</strong>, Russia, Feb 2025</p>
-            <p>
-              <i class="bi bi-star-fill text-warning"></i>
-              <i class="bi bi-star-fill text-warning"></i>
-              <i class="bi bi-star-fill text-warning"></i>
-              <i class="bi bi-star-fill text-warning"></i>
-              <i class="bi bi-star-fill text-warning"></i>
-            </p>
+        <div class="h-100 p-4 d-flex flex-column gap-3" style="background:#fff;border:0.5px solid #e5e7eb;border-radius:16px">
+          <div style="color:#f59e0b;font-size:13px">★★★★★</div>
+          <div style="font-size:32px;line-height:1;color:#020b5a;opacity:0.15;font-family:Georgia,serif">"</div>
+          <p style="font-size:13.5px;line-height:1.7;color:#374151;flex:1;margin:0">The mountain trails were breathtaking. Our guide was knowledgeable, friendly and always prepared.</p>
+          <hr style="border-color:#f3f4f6;margin:0">
+          <div class="d-flex align-items-center gap-2">
+            <div style="width:36px;height:36px;border-radius:50%;background:#fef3c7;color:#92400e;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;flex-shrink:0">VS</div>
+            <div>
+              <p style="font-size:13px;font-weight:500;color:#111827;margin:0">Vladimir S.</p>
+              <p style="font-size:11.5px;color:#9ca3af;margin:0">Russia · Feb 2025</p>
+            </div>
           </div>
         </div>
       </div>
+
       <!-- Review 3 -->
       <div class="col-sm-6 col-lg-3">
-        <div class="card h-100 border-0 shadow-sm">
-          <div class="card-body">
-            <p class="card-text text-dark">“Incredible service from start to finish. Highly recommend Caspian Elegance!”</p>
-            <p class="mb-1"><strong>Leila A.</strong>, Lebanon, Apr 2025</p>
-            <p>
-              <i class="bi bi-star-fill text-warning"></i>
-              <i class="bi bi-star-fill text-warning"></i>
-              <i class="bi bi-star-fill text-warning"></i>
-              <i class="bi bi-star-fill text-warning"></i>
-              <i class="bi bi-star-fill text-warning"></i>
-            </p>
+        <div class="h-100 p-4 d-flex flex-column gap-3" style="background:#fff;border:0.5px solid #e5e7eb;border-radius:16px">
+          <div style="color:#f59e0b;font-size:13px">★★★★★</div>
+          <div style="font-size:32px;line-height:1;color:#020b5a;opacity:0.15;font-family:Georgia,serif">"</div>
+          <p style="font-size:13.5px;line-height:1.7;color:#374151;flex:1;margin:0">Incredible service from start to finish. Highly recommend Caspian Elegance to anyone visiting!</p>
+          <hr style="border-color:#f3f4f6;margin:0">
+          <div class="d-flex align-items-center gap-2">
+            <div style="width:36px;height:36px;border-radius:50%;background:#d1fae5;color:#065f46;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;flex-shrink:0">LA</div>
+            <div>
+              <p style="font-size:13px;font-weight:500;color:#111827;margin:0">Leila A.</p>
+              <p style="font-size:11.5px;color:#9ca3af;margin:0">Lebanon · Apr 2025</p>
+            </div>
           </div>
         </div>
       </div>
+
       <!-- Review 4 -->
       <div class="col-sm-6 col-lg-3">
-        <div class="card h-100 border-0 shadow-sm">
-          <div class="card-body">
-            <p class="card-text text-dark">“Our family trip was seamless. Kids loved the interactive map and routes!”</p>
-            <p class="mb-1"><strong>Daniel P.</strong>, USA, Jan 2025</p>
-            <p>
-              <i class="bi bi-star-fill text-warning"></i>
-              <i class="bi bi-star-fill text-warning"></i>
-              <i class="bi bi-star-fill text-warning"></i>
-              <i class="bi bi-star-fill text-warning"></i>
-              <i class="bi bi-star-half text-warning"></i>
-            </p>
+        <div class="h-100 p-4 d-flex flex-column gap-3" style="background:#fff;border:0.5px solid #e5e7eb;border-radius:16px">
+          <div style="color:#f59e0b;font-size:13px">★★★★<span style="opacity:0.35">★</span></div>
+          <div style="font-size:32px;line-height:1;color:#020b5a;opacity:0.15;font-family:Georgia,serif">"</div>
+          <p style="font-size:13.5px;line-height:1.7;color:#374151;flex:1;margin:0">Our family trip was seamless. Kids loved the interactive maps and every route was perfectly planned.</p>
+          <hr style="border-color:#f3f4f6;margin:0">
+          <div class="d-flex align-items-center gap-2">
+            <div style="width:36px;height:36px;border-radius:50%;background:#fce7f3;color:#9d174d;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;flex-shrink:0">DP</div>
+            <div>
+              <p style="font-size:13px;font-weight:500;color:#111827;margin:0">Daniel P.</p>
+              <p style="font-size:11.5px;color:#9ca3af;margin:0">USA · Jan 2025</p>
+            </div>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </div>

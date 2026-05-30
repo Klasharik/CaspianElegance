@@ -53,7 +53,7 @@ class Badge(models.Model):
         return self.name
 
 def attraction_upload_path(instance, filename):
-    return f'attractions/{instance.tab.slug}/{filename}'
+    return f'attractions/{filename}'
 
 class Attraction(models.Model):
     SIZE_CHOICES = [
@@ -70,19 +70,29 @@ class Attraction(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
     image = models.ImageField(upload_to=attraction_upload_path)
-    tab = models.ForeignKey(Tab, on_delete=models.CASCADE, related_name='attractions')
+    tabs = models.ManyToManyField(Tab, through='AttractionTab', related_name='attractions')
     badge = models.ForeignKey(Badge, on_delete=models.SET_NULL, null=True, related_name='attractions')
     card_size = models.CharField(max_length=20, choices=SIZE_CHOICES, default='card-short')
-    column = models.IntegerField(choices=COLUMN_CHOICES, default=1)
-    order = models.PositiveIntegerField(default=0)
 
     class Meta:
-        ordering = ['column', 'order']
         verbose_name = 'Attraction'
         verbose_name_plural = 'Get Inspired (Home)'
 
     def __str__(self):
-        return f"{self.name} ({self.tab})"
+        return self.name
+
+class AttractionTab(models.Model):
+    attraction = models.ForeignKey(Attraction, on_delete=models.CASCADE)
+    tab = models.ForeignKey(Tab, on_delete=models.CASCADE)
+    column = models.IntegerField(choices=Attraction.COLUMN_CHOICES, default=1)
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['column', 'order']
+        unique_together = ['attraction', 'tab']
+
+    def __str__(self):
+        return f"{self.attraction.name} → {self.tab.name}"
 
 class Tour(models.Model):
     title = models.CharField(max_length=200)
@@ -100,6 +110,14 @@ class Tour(models.Model):
 
     def __str__(self):
         return self.title
+
+    @property
+    def short_title(self):
+        return self.title.split('—')[0].strip()
+
+    @property
+    def short_discription(self):
+        return self.title.split('—')[1].strip()
 
 class Favourite(models.Model):
     user = models.ForeignKey(

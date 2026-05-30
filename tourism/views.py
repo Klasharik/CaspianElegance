@@ -2,11 +2,14 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
-from .models import CarouselItem, Attraction, Tab, Tour, Favourite
+from .models import CarouselItem, Attraction, AttractionTab, Tab, Tour, Favourite
 
 def index(request):
     carousel_items = CarouselItem.objects.all()
-    tabs = Tab.objects.prefetch_related('attractions').all()
+    tabs = Tab.objects.prefetch_related(
+        'attractions',
+        'attractions__attractiontab_set'
+    ).all()
     tours = Tour.objects.filter(is_active=True)
 
     favourite_tour_ids = []
@@ -23,12 +26,12 @@ def index(request):
 
     attractions = {}
     for tab in tabs:
-        items = tab.attractions.all()
+        tab_items = AttractionTab.objects.filter(tab=tab).select_related('attraction', 'attraction__badge')
         attractions[tab.slug] = {
             'tab': tab,
-            'col1': items.filter(column=1),
-            'col2': items.filter(column=2),
-            'col3': items.filter(column=3),
+            'col1': tab_items.filter(column=1).order_by('order'),
+            'col2': tab_items.filter(column=2).order_by('order'),
+            'col3': tab_items.filter(column=3).order_by('order'),
         }
 
     return render(request, 'blog/index.html', {
@@ -36,14 +39,12 @@ def index(request):
         'tabs': tabs,
         'attractions': attractions,
         'tours': tours,
-        'favourite_tour_ids': favourite_tour_ids,
         'favourite_attraction_ids': favourite_attraction_ids,
+        'favourite_tour_ids': favourite_tour_ids,
     })
 
 def plan_your_trip(request):
     return render(request, 'blog/plan_your_trip.html')
-
-
 
 @login_required
 def profile(request):
@@ -79,4 +80,3 @@ def toggle_favourite(request, item_type, item_id):
         return JsonResponse({'status': 'removed'})
 
     return JsonResponse({'status': 'added'})
-

@@ -1,14 +1,179 @@
 /* SECTION: Navbar */
-.navbar-brand,
-.navbar .nav-link {
-  color: black !important;
-}
-
 .navbar {
   background-color: white !important;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.favourites-form{
+.navbar-brand,
+.navbar .nav-link {
+  color: black !important;
+}
+
+.registration-bg {
+  min-height: 85vh;
+  background-size: 100% 85vh;
+  background-repeat: repeat-y;
+  padding-bottom: 1rem;
+}
+
+.registration-bg-no-fav{
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.no-fav-form {
+  width: 80%;
+  margin-top: 7rem;
+}
+
+.favourites-form {
   margin-top: 8rem;
+}
+
+.fav-card {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  height: 100%;
+
+  cursor: pointer;
+
+  transition: transform 0.2s ease-in-out;
+}
+
+.fav-card:hover {
+  transform: scale(1.02);
+
+  .fav-link,
+  .bi-arrow-right-circle {
+    color: rgb(10 88 202);
+  }
+}
+
+.fav-card .card-img-wrap {
+  position: relative;
+  z-index: 1;
+
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  flex-shrink: 0;
+
+  overflow: hidden;
+
+  border-radius: 0.75rem;
+  box-shadow: 0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.5);
+}
+
+.fav-card .card-img-wrap img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.fav-card .card-text-box {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  width: 90%;
+  margin-top: -8rem;
+  margin-left: 4rem;
+  padding: 0.75rem 1.5rem;
+
+  box-sizing: border-box;
+
+  background: #fff;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.5);
+}
+
+.card-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 2;
+
+  border-radius: 0.25rem;
+
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.card-badge-tour {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 2;
+
+  padding: 1px 6px;
+
+  background-color: #507bc1;
+  color: white;
+  border-radius: 0.25rem;
+
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.fav-title {
+  font-weight: 600;
+}
+
+.fav-description {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+
+  font-size: 0.9rem;
+  color: rgb(74, 74, 74);
+}
+
+.fav-link {
+  color: #020b5a;
+
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.bi-arrow-right-circle {
+  color: #020b5a;
+
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.no-fav-heart{
+  font-size: 4rem;
+  font-weight: 600;
+  color: #020b5a;
+}
+
+.btn-no-fav {
+  display: flex;
+  justify-content: center;
+  align-items: center;      
+  font-weight: 600;
+  color: #020b5a;
+  border-color: #020b5a;
+  border-width: 2px;
+  height: 2.7rem;
+  width: 100%;
+}
+
+.btn-no-fav:hover {
+  background-color: #020b5a;
+  border-color: #020b5a;
+  color: #fff;
 }
