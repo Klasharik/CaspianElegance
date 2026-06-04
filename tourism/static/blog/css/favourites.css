@@ -35,6 +35,11 @@
   margin-top: 8rem;
 }
 
+.fav-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
 .fav-card {
   position: relative;
 
@@ -176,4 +181,33 @@
   background-color: #020b5a;
   border-color: #020b5a;
   color: #fff;
+}
+
+.btn-favourite {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+
+  width: 2rem;
+  height: 2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 1.3rem;
+  color: #e74c3c;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+
+  cursor: pointer;
+  outline: none;
+}
+
+.btn-favourite-attractions, .btn-favourite{
+  transition: color 0.3s ease;
+}
+
+.btn-favourite-attractions:hover, .btn-favourite:hover{
+  color: #f9321c !important;
 }

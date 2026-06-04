@@ -52,8 +52,10 @@ class Badge(models.Model):
     def __str__(self):
         return self.name
 
+from django.utils.text import slugify
+
 def attraction_upload_path(instance, filename):
-    return f'attractions/{filename}'
+    return f'attractions/{slugify(instance.name)}/{filename}'
 
 class Attraction(models.Model):
     SIZE_CHOICES = [
@@ -141,6 +143,7 @@ class Favourite(models.Model):
 
     class Meta:
         verbose_name_plural = 'Favourites'
+        ordering = ['created_at']
         constraints = [
             models.UniqueConstraint(fields=['user', 'attraction'], name='unique_user_attraction_favourite'),
             models.UniqueConstraint(fields=['user', 'tour'], name='unique_user_tour_favourite'),

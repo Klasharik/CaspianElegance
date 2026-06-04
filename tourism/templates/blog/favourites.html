@@ -15,11 +15,16 @@
     <div class="row g-5 align-items-stretch">
       {% for fav in favourites %}
         {% if fav.attraction %}
-        <div class="col-md-4">
+        <div class="col-md-4 fav-item" id="fav-attraction-{{ fav.attraction.id }}">
           <div class="fav-card">
             <div class="card-img-wrap">
               <img src="{{ fav.attraction.image.url }}" alt="{{ fav.attraction.name }}">
               <span class="card-badge badge" style="background-color: {{ fav.attraction.badge.color }}">{{ fav.attraction.badge.name }}</span>
+
+              <i class="bi bi-heart-fill btn-favourite"
+                data-url="{% url 'toggle_favourite' 'attraction' fav.attraction.id %}"
+                onclick="toggleFavOnFavPage(this)">
+              </i>
             </div>
             <div class="card-text-box">
               <h5 class="fav-title">{{ fav.attraction.name }}</h5>
@@ -34,11 +39,16 @@
         {% endif %}
 
         {% if fav.tour %}
-        <div class="col-md-4">
+        <div class="col-md-4 fav-item" id="fav-tour-{{ fav.tour.id }}">
           <div class="fav-card">
             <div class="card-img-wrap">
               <img src="{{ fav.tour.image.url }}" alt="{{ fav.tour.title }}">
               <span class="card-badge-tour">Tour</span>
+
+              <i class="bi bi-heart-fill btn-favourite"
+                data-url="{% url 'toggle_favourite' 'tour' fav.tour.id %}"
+                onclick="toggleFavOnFavPage(this)">
+              </i>
             </div>
             <div class="card-text-box">
               <h5 class="fav-title">{{ fav.tour.short_title }}</h5>

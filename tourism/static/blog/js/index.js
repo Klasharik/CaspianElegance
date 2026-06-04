@@ -176,6 +176,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+  if (video.readyState >= 1) {
+  video.dispatchEvent(new Event('loadedmetadata'));
+  }
+
   // SECTION: Page Visibility Handling
   document.addEventListener('visibilitychange', function () {
     if (document.hidden) {

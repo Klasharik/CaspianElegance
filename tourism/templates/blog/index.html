@@ -30,7 +30,10 @@
 
         {% if item.media_type == 'video' %}
           <!-- id="carousel-video" один раз → JS работает корректно -->
-          <video id="carousel-video" class="d-block w-100" muted loop>
+          <video id="carousel-video" class="d-block w-100" muted loop
+              autoplay
+              preload="metadata"
+              playsinline>
             <source src="{{ item.file.url }}" type="video/mp4">
             Your browser does not support the video tag.
           </video>
