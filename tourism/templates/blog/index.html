@@ -108,7 +108,7 @@
               <span class="card-badge badge" style="background-color: {{ item.attraction.badge.color }}">{{ item.attraction.badge.name }}</span>
               
               {% if user.is_authenticated %}
-              <i class="bi {% if item.attraction.id in favourite_attraction_ids %}bi-heart-fill{% else %}bi-heart{% endif %} btn-favourite-attractions"
+              <i class="bi {% if item.attraction.id in favourite_attraction_ids %}bi-heart-fill{% else %}bi-heart{% endif %} btn-favourite-attractions active"
                 style="{% if item.attraction.id in favourite_attraction_ids %}color: #e74c3c;{% else %}color: white;{% endif %}"  
                 data-url="{% url 'toggle_favourite' 'attraction' item.attraction.id %}"
                 onclick="toggleFav(this)">

@@ -71,7 +71,11 @@ class Attraction(models.Model):
 
     name = models.CharField(max_length=200)
     description = models.TextField()
-    image = models.ImageField(upload_to=attraction_upload_path)
+    image = models.ImageField(
+    upload_to=attraction_upload_path,
+    null=True,
+    blank=True,
+    )
     tabs = models.ManyToManyField(Tab, through='AttractionTab', related_name='attractions')
     badge = models.ForeignKey(Badge, on_delete=models.SET_NULL, null=True, related_name='attractions')
     card_size = models.CharField(max_length=20, choices=SIZE_CHOICES, default='card-short')
@@ -99,7 +103,11 @@ class AttractionTab(models.Model):
 class Tour(models.Model):
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=300)
-    image = models.ImageField(upload_to='tours/')
+    image = models.ImageField(
+    upload_to='tours/',
+    null=True,
+    blank=True,
+)
     nights = models.PositiveIntegerField()
     price = models.DecimalField(max_digits=10, decimal_places=0)
     order = models.PositiveIntegerField(default=0)
@@ -127,18 +135,21 @@ class Favourite(models.Model):
         on_delete=models.CASCADE,
         related_name='favourites'
     )
+    
     attraction = models.ForeignKey(
         Attraction,
         on_delete=models.CASCADE,
         null=True, blank=True,
         related_name='favourited_by'
     )
+    
     tour = models.ForeignKey(
         Tour,
         on_delete=models.CASCADE,
         null=True, blank=True,
         related_name='favourited_by'
     )
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

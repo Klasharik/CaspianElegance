@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
-from django.utils import timezone
+from django.utils.dateparse import parse_datetime
+from django.views.decorators.csrf import csrf_exempt
 from .models import CarouselItem, Attraction, AttractionTab, Tab, Tour, Favourite
 
 def index(request):
@@ -63,6 +64,8 @@ def favourites(request):
 @login_required
 @require_POST
 def toggle_favourite(request, item_type, item_id):
+    session_key = f'fav_created_at_{item_type}_{item_id}'
+
     if item_type == 'attraction':
         fav, created = Favourite.objects.get_or_create(
             user=request.user,
@@ -77,20 +80,39 @@ def toggle_favourite(request, item_type, item_id):
         return JsonResponse({'error': 'Invalid type'}, status=400)
 
     if not created:
-        session_key = f'fav_created_at_{item_type}_{item_id}'
         request.session[session_key] = fav.created_at.isoformat()
         fav.delete()
-        return JsonResponse({'status': 'removed'})
-    
-    session_key = f'fav_created_at_{item_type}_{item_id}'
+
+        return JsonResponse({
+            'status': 'removed'
+        })
+
     saved_created_at = request.session.pop(session_key, None)
 
     if saved_created_at:
-        # Восстанавливаем старую позицию — обновляем created_at напрямую
-        # (auto_now_add нельзя изменить через save(), поэтому используем update())
-        Favourite.objects.filter(pk=fav.pk).update(
-            created_at=saved_created_at
-        )
+        dt = parse_datetime(saved_created_at)
 
-    return JsonResponse({'status': 'added'})
+        if dt:
+            Favourite.objects.filter(pk=fav.pk).update(
+                created_at=dt
+            )
 
+    return JsonResponse({
+        'status': 'added'
+    })
+
+@login_required
+@csrf_exempt
+@require_POST
+def clear_favourite_positions(request):
+    keys_to_delete = [
+        key for key in request.session.keys()
+        if key.startswith('fav_created_at_')
+    ]
+
+    for key in keys_to_delete:
+        del request.session[key]
+
+    request.session.modified = True
+
+    return JsonResponse({'status': 'ok'})

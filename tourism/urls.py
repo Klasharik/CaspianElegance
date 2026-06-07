@@ -8,4 +8,5 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('favourites/', views.favourites, name='favourites'),
     path('favourite/<str:item_type>/<int:item_id>/', views.toggle_favourite, name='toggle_favourite'),
+    path('favourites/clear-positions/', views.clear_favourite_positions, name='clear_favourite_positions'),
 ]
