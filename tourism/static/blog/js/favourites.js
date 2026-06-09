@@ -86,8 +86,23 @@ function toggleFavOnFavPage(heartIcon) {
     const card = heartIcon.closest('.fav-item');
     const url = heartIcon.dataset.url;
 
-    // Сразу блокируем кнопку чтобы не было двойных кликов пока идёт запрос
+    // Запоминаем текущее состояние ДО изменения
+    const isFilled = heartIcon.classList.contains('bi-heart-fill');
+
+    // Блокируем кнопку
     heartIcon.style.pointerEvents = 'none';
+
+    // Меняем иконку МГНОВЕННО не дожидаясь сервера
+    if (isFilled) {
+        card.style.opacity = '0.8';
+        card.style.transition = 'opacity 0.3s';
+        heartIcon.classList.replace('bi-heart-fill', 'bi-heart');
+        heartIcon.style.color = '#aaa';
+    } else {
+        card.style.opacity = '1';
+        heartIcon.classList.replace('bi-heart', 'bi-heart-fill');
+        heartIcon.style.color = '#e74c3c';
+    }
 
     fetch(url, {
         method: 'POST',
@@ -95,22 +110,30 @@ function toggleFavOnFavPage(heartIcon) {
     })
     .then(res => res.json())
     .then(data => {
-        if (data.status === 'removed') {
-            // Удалено с сервера — затемняем карточку, но не убираем со страницы
-            // Пользователь видит что убрано, и может нажать снова чтобы вернуть
+        // Если сервер вернул неожиданный результат — исправляем
+        if (data.status === 'removed' && !isFilled) {
             card.style.opacity = '0.8';
-            card.style.transition = 'opacity 0.3s';
             heartIcon.classList.replace('bi-heart-fill', 'bi-heart');
             heartIcon.style.color = '#aaa';
-        } else if (data.status === 'added') {
-            // Вернули обратно — восстанавливаем нормальный вид
+        } else if (data.status === 'added' && isFilled) {
             card.style.opacity = '1';
             heartIcon.classList.replace('bi-heart', 'bi-heart-fill');
             heartIcon.style.color = '#e74c3c';
         }
     })
+    .catch(() => {
+        // Откат при ошибке — возвращаем исходное состояние
+        if (isFilled) {
+            card.style.opacity = '1';
+            heartIcon.classList.replace('bi-heart', 'bi-heart-fill');
+            heartIcon.style.color = '#e74c3c';
+        } else {
+            card.style.opacity = '0.8';
+            heartIcon.classList.replace('bi-heart-fill', 'bi-heart');
+            heartIcon.style.color = '#aaa';
+        }
+    })
     .finally(() => {
-        // Разблокируем кнопку после завершения запроса
         heartIcon.style.pointerEvents = 'auto';
     });
 }
